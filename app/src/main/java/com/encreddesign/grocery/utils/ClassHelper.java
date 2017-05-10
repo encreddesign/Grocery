@@ -1,8 +1,8 @@
-package com.encreddesign.grocery.core.utils;
+package com.encreddesign.grocery.utils;
 
 import android.util.Log;
 
-import com.encreddesign.grocery.core.Core;
+import com.encreddesign.grocery.BaseActivity;
 
 /**
  * Created by Joshua on 29/04/2017.
@@ -30,11 +30,11 @@ public class ClassHelper {
             instance = cls.newInstance();
 
         } catch (ClassNotFoundException ex) {
-            Log.e( Core.LOG_TAG, ex.getMessage(), ex );
+            Log.e( BaseActivity.LOG_TAG, ex.getMessage(), ex );
         } catch (IllegalAccessException ex) {
-            Log.e( Core.LOG_TAG, ex.getMessage(), ex );
+            Log.e( BaseActivity.LOG_TAG, ex.getMessage(), ex );
         } catch (InstantiationException ex) {
-            Log.e( Core.LOG_TAG, ex.getMessage(), ex );
+            Log.e( BaseActivity.LOG_TAG, ex.getMessage(), ex );
         }
 
         return instance;

@@ -1,3 +1,17 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
+
+    <dimen name="app_font_size">15dp</dimen>
+    <dimen name="app_fragment_margin">10dp</dimen>
+    <dimen name="app_button_padding">20dp</dimen>
+    <dimen name="app_spinner_padding">15dp</dimen>
+
+    <!-- Row Item -->
+    <dimen name="item_margin">10dp</dimen>
+    <dimen name="item_font_size">15dp</dimen>
+    <dimen name="item_nameMarginBottom">5dp</dimen>
+    <dimen name="item_categoryMarginBottom">5dp</dimen>
+
+    <!-- Item Edit -->
+    <dimen name="item_categorySpinnerPadding">15dp</dimen>
 </resources>

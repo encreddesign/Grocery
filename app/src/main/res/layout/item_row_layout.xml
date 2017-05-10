@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="@dimen/item_margin">
+
+    <TextView
+        android:id="@+id/groceryItemName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/item_nameMarginBottom"
+        android:text="@string/item_name_default"
+        android:textSize="@dimen/item_font_size"/>
+
+    <TextView
+        android:id="@+id/groceryItemCategory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/item_categoryMarginBottom"
+        android:text="@string/item_category_default"
+        android:textSize="@dimen/item_font_size"/>
+
+</LinearLayout>

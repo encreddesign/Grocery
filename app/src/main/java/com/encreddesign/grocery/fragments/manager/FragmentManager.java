@@ -1,8 +1,9 @@
-package com.encreddesign.grocery.core.fragments;
+package com.encreddesign.grocery.fragments.manager;
 
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.support.design.widget.FloatingActionButton;
 
 /**
  * Created by Joshua on 29/04/2017.
@@ -15,6 +16,10 @@ public class FragmentManager {
 
     private FragmentMapper mFragmentMapper;
     private android.app.FragmentManager mFragmentManager;
+
+    private FloatingActionButton mFloatingButton;
+    private String mFloatingShowCondition;
+    private String mFloatingHideCondition;
 
     FragmentManager (Activity activity, int parentLayoutId) {
 
@@ -30,9 +35,25 @@ public class FragmentManager {
     * @method addFragment
     * @params Fragment fragment, Integer parentLayoutId
     * */
-    public void addFragment (Fragment fragment) {
+    public FragmentManager addFragment (Fragment fragment) {
+
         this.mFragmentMapper.addFragment(
                 FragmentHolder.newInstance(fragment, this.mParentLayoutId));
+        return this;
+
+    }
+
+    /*
+    * @method addFloatingAction
+    * @params FloatingActionButton action, String condition
+    * */
+    public FragmentManager addFloatingAction (FloatingActionButton action, String condition) {
+
+        this.mFloatingButton = action;
+        this.mFloatingShowCondition = condition;
+
+        return this;
+
     }
 
     /*
@@ -73,6 +94,16 @@ public class FragmentManager {
         if(animate) {
 
             transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+
+        }
+
+        if(this.mFloatingButton != null && this.mFloatingShowCondition != null) {
+
+            if(label == this.mFloatingShowCondition) {
+                this.mFloatingButton.show();
+            } else {
+                this.mFloatingButton.hide();
+            }
 
         }
 

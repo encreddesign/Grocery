@@ -1,4 +1,16 @@
 <resources>
     <string name="app_name">Grocery</string>
     <string name="action_settings">Settings</string>
+
+    <!-- Defaults -->
+    <string name="item_name_default">Grocery Item</string>
+    <string name="item_category_default">Category</string>
+    <string name="empty_list_default">Your shopping list is empty</string>
+    <string name="menu_action_save_default">Save</string>
+
+    <!-- Labels -->
+    <string name="edit_name_label">Edit Item Name</string>
+    <string name="edit_quantity_label">Item Quantity</string>
+    <string name="edit_categories_label">Item Category</string>
+    <string name="edit_addCat_label">Add Category</string>
 </resources>

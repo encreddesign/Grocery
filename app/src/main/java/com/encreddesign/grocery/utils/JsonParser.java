@@ -1,8 +1,8 @@
-package com.encreddesign.grocery.core.utils;
+package com.encreddesign.grocery.utils;
 
 import android.util.Log;
 
-import com.encreddesign.grocery.core.Core;
+import com.encreddesign.grocery.BaseActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -37,7 +37,7 @@ public class JsonParser {
             }
 
         } catch (JSONException ex) {
-            Log.e( Core.LOG_TAG, "JSON Parsing error", ex );
+            Log.e( BaseActivity.LOG_TAG, "JSON Parsing error", ex );
         }
 
         return $return;
@@ -56,7 +56,7 @@ public class JsonParser {
 
         } catch (JSONException ex) {
 
-            Log.e( Core.LOG_TAG, "JSON Object error", ex );
+            Log.e( BaseActivity.LOG_TAG, "JSON Object error", ex );
             return null;
 
         }
@@ -82,7 +82,7 @@ public class JsonParser {
                 }
 
             } catch (JSONException ex) {
-                Log.e( Core.LOG_TAG, "JSON Parsing error", ex );
+                Log.e( BaseActivity.LOG_TAG, "JSON Parsing error", ex );
             }
 
         }

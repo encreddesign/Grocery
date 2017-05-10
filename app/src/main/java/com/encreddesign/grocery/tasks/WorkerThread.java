@@ -1,4 +1,4 @@
-package com.encreddesign.grocery.core.tasks;
+package com.encreddesign.grocery.tasks;
 
 import android.os.Handler;
 import android.os.HandlerThread;

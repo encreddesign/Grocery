@@ -1,6 +1,5 @@
-package com.encreddesign.grocery.core.fragments;
+package com.encreddesign.grocery.fragments.manager;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 /**

@@ -1,4 +1,4 @@
-package com.encreddesign.grocery.core.fragments;
+package com.encreddesign.grocery.fragments.manager;
 
 import android.app.Fragment;
 
