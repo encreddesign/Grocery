@@ -5,11 +5,27 @@
     <!-- Defaults -->
     <string name="item_name_default">Grocery Item</string>
     <string name="item_category_default">Category</string>
+
+    <!-- Layouts -->
     <string name="empty_list_default">Your shopping list is empty</string>
+
+    <!-- Menus -->
     <string name="menu_action_save_default">Save</string>
+
+    <!-- Spinners -->
+    <string name="spinner_category_default">Choose Category</string>
+
+    <!-- Snackbar -->
+    <string name="snackbar_chooseCat_default">Create some categories</string>
+    <string name="snackbar_chooseCatAdd_default">Create</string>
+
+    <!-- Form Validation -->
+    <string name="form_category_name">Category name required</string>
+    <string name="form_item_name">Item name required</string>
 
     <!-- Labels -->
     <string name="edit_name_label">Edit Item Name</string>
+    <string name="edit_catName_label">Edit Category Name</string>
     <string name="edit_quantity_label">Item Quantity</string>
     <string name="edit_categories_label">Item Category</string>
     <string name="edit_addCat_label">Add Category</string>

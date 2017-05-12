@@ -5,6 +5,8 @@ import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.support.design.widget.FloatingActionButton;
 
+import com.encreddesign.grocery.fragments.GroceryFragment;
+
 /**
  * Created by Joshua on 29/04/2017.
  */
@@ -19,7 +21,6 @@ public class FragmentManager {
 
     private FloatingActionButton mFloatingButton;
     private String mFloatingShowCondition;
-    private String mFloatingHideCondition;
 
     FragmentManager (Activity activity, int parentLayoutId) {
 
@@ -84,7 +85,7 @@ public class FragmentManager {
 
         final FragmentTransaction transaction = this.mFragmentManager.beginTransaction();
 
-        transaction.replace(this.mParentLayoutId, this.getFragment(label));
+        transaction.replace(this.mParentLayoutId, this.getFragment(label), label);
         if(addToBackStack) {
 
             transaction.addToBackStack(label);
@@ -108,6 +109,21 @@ public class FragmentManager {
         }
 
         transaction.commit();
+
+    }
+
+    /*
+    * @method isFragmentVisible
+    * @params String label
+    * */
+    public boolean isFragmentVisible (String label) {
+
+        GroceryFragment fragment = (GroceryFragment) this.mFragmentManager.findFragmentByTag(label);
+        if(fragment != null && fragment.isVisible()) {
+            return true;
+        }
+
+        return false;
 
     }
 

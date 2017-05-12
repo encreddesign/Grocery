@@ -6,8 +6,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.encreddesign.grocery.BaseActivity;
 import com.encreddesign.grocery.R;
+import com.encreddesign.grocery.db.category.CategoryEntity;
+import com.encreddesign.grocery.db.category.CategoryMapper;
 import com.encreddesign.grocery.db.items.GroceryEntity;
+import com.encreddesign.grocery.fragments.ItemsFragment;
 
 import java.util.List;
 
@@ -17,6 +21,7 @@ import java.util.List;
 
 public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> {
 
+    private ViewGroup mParent;
     private final List<GroceryEntity> mItems;
 
     public ItemsAdapter (List<GroceryEntity> items) {
@@ -29,6 +34,8 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> 
         final View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_row_layout, parent, false);
         final ViewHolder holder = new ViewHolder(view);
 
+        this.mParent = parent;
+
         return holder;
 
     }
@@ -37,9 +44,13 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> 
     public void onBindViewHolder(ViewHolder holder, int position) {
 
         GroceryEntity item = this.mItems.get(position);
+        CategoryEntity entity = new CategoryMapper(this.mParent.getContext())
+                .findCategoryById(item.getGroceryItemCategory());
 
         holder.mItemName.setText(item.getGroceryItemName());
-        holder.mItemCategory.setText(item.getGroceryItemCategory());
+        if(entity != null) {
+            holder.mItemCategory.setText(entity.getCategoryName());
+        }
 
     }
 

@@ -2,6 +2,7 @@
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parentCoordinatorLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.encreddesign.grocery.BaseActivity">
@@ -28,6 +29,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_menu_edit" />
+        app:rippleColor="@color/colorWhite"
+        app:srcCompat="@drawable/ic_add" />
+
+    <include layout="@layout/fabs_layout"/>
 
 </android.support.design.widget.CoordinatorLayout>

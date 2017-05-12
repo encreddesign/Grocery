@@ -10,7 +10,7 @@ import android.view.ViewGroup;
  * Created by Joshua on 29/04/2017.
  */
 
-public class CompletedItemsFragment extends Fragment {
+public class CompletedItemsFragment extends GroceryFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
