@@ -1,6 +1,5 @@
 package com.encreddesign.grocery.fragments;
 
-import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -15,8 +14,10 @@ import android.widget.Toast;
 import com.encreddesign.grocery.BaseActivity;
 import com.encreddesign.grocery.R;
 import com.encreddesign.grocery.callbacks.CategorySubmit;
+import com.encreddesign.grocery.db.category.CategoryEntity;
 import com.encreddesign.grocery.db.category.CategoryMapper;
 import com.encreddesign.grocery.tasks.TaskHandler;
+import com.encreddesign.grocery.utils.forms.FormValidation;
 
 import es.dmoral.toasty.Toasty;
 
@@ -76,13 +77,13 @@ public class CategoryFragment extends GroceryFragment {
 
         try {
 
-            final String value = this.mEditCatName.getText().toString();
-            if(value.length() == 0) {
-                throw new Exception(getResources().getString(R.string.form_category_name));
-            }
+            final CategoryEntity entity = new CategoryEntity();
+            final FormValidation validation = new FormValidation(this.getActivity().getBaseContext(), entity);
+
+            validation.validateText(this.mEditCatName);
 
             this.mTaskHandler.bg(new CategorySubmit(this, this.mTaskHandler,
-                    new CategoryMapper(this.getActivity().getBaseContext()), value));
+                    new CategoryMapper(this.getActivity().getBaseContext()), entity.getCategoryName()));
 
         } catch (Exception ex) {
             Toasty.error(getActivity().getBaseContext(), ex.getMessage(), Toast.LENGTH_SHORT).show();

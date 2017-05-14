@@ -1,12 +1,14 @@
 package com.encreddesign.grocery.db.items;
 
+import com.encreddesign.grocery.db.AbstractEntity;
+
 import java.io.Serializable;
 
 /**
  * Created by Joshua on 06/05/2017.
  */
 
-public class GroceryEntity implements Serializable {
+public class GroceryEntity extends AbstractEntity implements Serializable {
 
     private String groceryItemName;
 

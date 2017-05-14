@@ -44,12 +44,10 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> 
     public void onBindViewHolder(ViewHolder holder, int position) {
 
         GroceryEntity item = this.mItems.get(position);
-        CategoryEntity entity = new CategoryMapper(this.mParent.getContext())
-                .findCategoryById(item.getGroceryItemCategory());
 
         holder.mItemName.setText(item.getGroceryItemName());
-        if(entity != null) {
-            holder.mItemCategory.setText(entity.getCategoryName());
+        if(item.getExtraContent() != null) {
+            holder.mItemCategory.setText(item.getExtraContent());
         }
 
     }

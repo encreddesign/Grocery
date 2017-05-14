@@ -1,12 +1,14 @@
 package com.encreddesign.grocery.db.category;
 
+import com.encreddesign.grocery.db.AbstractEntity;
+
 import java.io.Serializable;
 
 /**
  * Created by Joshua on 10/05/2017.
  */
 
-public class CategoryEntity implements Serializable {
+public class CategoryEntity extends AbstractEntity implements Serializable {
 
     private int categoryId;
 

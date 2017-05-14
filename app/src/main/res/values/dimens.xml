@@ -8,10 +8,26 @@
     <dimen name="app_spinner_padding">15dp</dimen>
 
     <!-- Row Item -->
-    <dimen name="item_margin">10dp</dimen>
+    <dimen name="item_padding">15dp</dimen>
+    <dimen name="item_marginBottom">5dp</dimen>
     <dimen name="item_font_size">15dp</dimen>
+    <dimen name="item_font_catSize">12dp</dimen>
+
     <dimen name="item_nameMarginBottom">5dp</dimen>
+    <dimen name="item_nameMarginLeft">7dp</dimen>
+    <dimen name="item_nameMarginTop">10dp</dimen>
+
+    <dimen name="item_categoryPadding">5dp</dimen>
+    <dimen name="item_categoryPaddingWidth">10dp</dimen>
+    <dimen name="item_categoryMaxWidth">130dp</dimen>
     <dimen name="item_categoryMarginBottom">7dp</dimen>
+
+    <dimen name="item_offsetMargin">-10dp</dimen>
+
+    <dimen name="item_checkboxSize">40dp</dimen>
+    <dimen name="item_checkboxPadding">25dp</dimen>
+
+    <dimen name="item_categoryLabelRadius">7dp</dimen>
 
     <!-- Item Edit -->
     <dimen name="item_categorySpinnerPadding">15dp</dimen>

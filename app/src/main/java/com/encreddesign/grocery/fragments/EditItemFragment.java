@@ -22,6 +22,7 @@ import com.encreddesign.grocery.db.category.CategoryMapper;
 import com.encreddesign.grocery.db.items.GroceryEntity;
 import com.encreddesign.grocery.db.items.ItemsMapper;
 import com.encreddesign.grocery.tasks.TaskHandler;
+import com.encreddesign.grocery.utils.forms.FormValidation;
 
 import es.dmoral.toasty.Toasty;
 
@@ -33,6 +34,7 @@ public class EditItemFragment extends GroceryFragment {
 
     private EditText mEditItemName;
     private EditText mEditItemQuantity;
+    private EditText mEditItemTags;
     private Spinner mSpinnerItemCategories;
 
     private TaskHandler mHandler;
@@ -54,6 +56,8 @@ public class EditItemFragment extends GroceryFragment {
         this.mEditItemName.setFocusable(true);
 
         this.mEditItemQuantity = (EditText) view.findViewById(R.id.item_edit_quantity);
+
+        this.mEditItemTags = (EditText) view.findViewById(R.id.item_edit_tags);
 
         this.mSpinnerItemCategories = (Spinner) view.findViewById(R.id.item_edit_categories);
         this.populateSpinner(this.mSpinnerItemCategories, ((BaseActivity) getActivity()).getApplicationContext());
@@ -100,26 +104,12 @@ public class EditItemFragment extends GroceryFragment {
 
         try {
 
-            final String valueName = this.mEditItemName.getText().toString();
-            final String valueQuantity = this.mEditItemQuantity.getText().toString();
-            final String valueCategory = this.mSpinnerItemCategories.getSelectedItem().toString();
-
             final GroceryEntity entity = new GroceryEntity();
+            final FormValidation validation = new FormValidation(this.getActivity().getBaseContext(), entity);
 
-            if(valueName.length() == 0) {
-                throw new Exception(getResources().getString(R.string.form_category_name));
-            }
-
-            entity.setGroceryItemName(valueName);
-            if(valueQuantity.length() > 0) {
-                entity.setGroceryItemQuantity(Integer.valueOf(valueQuantity));
-            }
-            if(valueCategory.length() > 0 && valueCategory != getResources().getString(R.string.spinner_category_default)) {
-                entity.setGroceryItemCategory(
-                        new CategoryMapper(this.getActivity().getBaseContext())
-                                .findCategoryByName(valueCategory).getCategoryId()
-                );
-            }
+            validation.validateText(this.mEditItemName);
+            validation.validateNumber(this.mEditItemQuantity);
+            validation.validateSpinner(this.mSpinnerItemCategories);
 
             this.mHandler.bg(new ItemSubmit(this, this.mHandler,
                     new ItemsMapper(this.getActivity().getBaseContext()), entity));

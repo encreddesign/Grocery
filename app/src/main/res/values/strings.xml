@@ -28,5 +28,12 @@
     <string name="edit_catName_label">Edit Category Name</string>
     <string name="edit_quantity_label">Item Quantity</string>
     <string name="edit_categories_label">Item Category</string>
+    <string name="edit_tags_label">Item Tags - Press enter to add tag</string>
     <string name="edit_addCat_label">Add Category</string>
+
+    <!-- Tags -->
+    <string name="field_name_item">Item Name</string>
+    <string name="field_name_quantity">Item Quantity</string>
+    <string name="field_name_category">Item Category</string>
+    <string name="field_name_categoryName">Category Name</string>
 </resources>
