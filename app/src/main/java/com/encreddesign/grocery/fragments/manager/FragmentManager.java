@@ -3,6 +3,7 @@ package com.encreddesign.grocery.fragments.manager;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 
 import com.encreddesign.grocery.fragments.GroceryFragment;
@@ -75,6 +76,17 @@ public class FragmentManager {
         return this.mFragmentMapper
                 .getFragments()
                 .get(label);
+    }
+
+    /*
+    * @method setData
+    * @params String label, Bundle bundle
+    * */
+    public FragmentManager setData (String label, Bundle bundle) {
+
+        this.getFragment(label).setArguments(bundle);
+        return this;
+
     }
 
     /*

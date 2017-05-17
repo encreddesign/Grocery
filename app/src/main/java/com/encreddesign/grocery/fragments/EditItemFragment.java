@@ -18,6 +18,7 @@ import com.encreddesign.grocery.BaseActivity;
 import com.encreddesign.grocery.R;
 import com.encreddesign.grocery.callbacks.CategoryCollecting;
 import com.encreddesign.grocery.callbacks.ItemSubmit;
+import com.encreddesign.grocery.callbacks.OnCompletionTag;
 import com.encreddesign.grocery.db.category.CategoryMapper;
 import com.encreddesign.grocery.db.items.GroceryEntity;
 import com.encreddesign.grocery.db.items.ItemsMapper;
@@ -36,8 +37,10 @@ public class EditItemFragment extends GroceryFragment {
     private EditText mEditItemQuantity;
     private EditText mEditItemTags;
     private Spinner mSpinnerItemCategories;
+    private View mParentView;
 
     private TaskHandler mHandler;
+    private Context mContext;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -49,7 +52,9 @@ public class EditItemFragment extends GroceryFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.item_fragment, container, false);
+        this.mParentView = view;
 
+        this.mContext = ((BaseActivity) getActivity()).getBaseContext();
         this.mHandler = ((BaseActivity) getActivity()).mTaskHandler;
 
         this.mEditItemName = (EditText) view.findViewById(R.id.item_edit_name);
@@ -58,9 +63,12 @@ public class EditItemFragment extends GroceryFragment {
         this.mEditItemQuantity = (EditText) view.findViewById(R.id.item_edit_quantity);
 
         this.mEditItemTags = (EditText) view.findViewById(R.id.item_edit_tags);
+        this.mEditItemTags.setOnEditorActionListener(new OnCompletionTag(
+                ((BaseActivity) getActivity()), this.mEditItemTags, (ViewGroup) view.findViewById(R.id.item_tags_container))
+        );
 
         this.mSpinnerItemCategories = (Spinner) view.findViewById(R.id.item_edit_categories);
-        this.populateSpinner(this.mSpinnerItemCategories, ((BaseActivity) getActivity()).getApplicationContext());
+        this.populateSpinner(this.mSpinnerItemCategories, this.mContext);
 
         return view;
 
@@ -105,17 +113,18 @@ public class EditItemFragment extends GroceryFragment {
         try {
 
             final GroceryEntity entity = new GroceryEntity();
-            final FormValidation validation = new FormValidation(this.getActivity().getBaseContext(), entity);
+            final FormValidation validation = new FormValidation(this.mContext, entity);
 
             validation.validateText(this.mEditItemName);
             validation.validateNumber(this.mEditItemQuantity);
             validation.validateSpinner(this.mSpinnerItemCategories);
 
-            this.mHandler.bg(new ItemSubmit(this, this.mHandler,
-                    new ItemsMapper(this.getActivity().getBaseContext()), entity));
+            validation.validateTags((ViewGroup) this.mParentView.findViewById(R.id.item_tags_container));
+
+            this.mHandler.bg(new ItemSubmit(this, this.mHandler, new ItemsMapper(this.mContext), entity));
 
         } catch (Exception ex) {
-            Toasty.error(getActivity().getBaseContext(), ex.getMessage(), Toast.LENGTH_SHORT).show();
+            this.showToast(getActivity().getBaseContext(), ex.getMessage(), ToastTypes.ERROR);
         }
 
     }

@@ -5,6 +5,7 @@
     <!-- Defaults -->
     <string name="item_name_default">Grocery Item</string>
     <string name="item_category_default">Category</string>
+    <string name="item_view_default">Not Available</string>
 
     <!-- Layouts -->
     <string name="empty_list_default">Your shopping list is empty</string>
@@ -30,6 +31,8 @@
     <string name="edit_categories_label">Item Category</string>
     <string name="edit_tags_label">Item Tags - Press enter to add tag</string>
     <string name="edit_addCat_label">Add Category</string>
+
+    <string name="view_tags_label">Item Tags</string>
 
     <!-- Tags -->
     <string name="field_name_item">Item Name</string>

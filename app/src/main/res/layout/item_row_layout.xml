@@ -11,7 +11,7 @@
     <GridLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:columnCount="2"
+        android:columnCount="3"
         android:orientation="horizontal">
 
         <RelativeLayout
@@ -40,6 +40,16 @@
             android:textSize="@dimen/item_font_size"
             android:textStyle="bold"
             android:textColor="@color/colorPrimary"/>
+
+        <TextView
+            android:id="@+id/groceryItemTags"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/item_tagMarginTop"
+            android:layout_marginLeft="@dimen/item_nameMarginLeft"
+            android:layout_marginBottom="@dimen/item_nameMarginBottom"
+            android:visibility="gone"
+            android:background="@drawable/ic_label"/>
 
     </GridLayout>
 

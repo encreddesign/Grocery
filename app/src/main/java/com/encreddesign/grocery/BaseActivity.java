@@ -15,6 +15,7 @@ import com.encreddesign.grocery.fragments.CompletedItemsFragment;
 import com.encreddesign.grocery.fragments.EditItemFragment;
 import com.encreddesign.grocery.fragments.ItemsFragment;
 import com.encreddesign.grocery.fragments.OutstandingItemsFragment;
+import com.encreddesign.grocery.fragments.ViewItemFragment;
 import com.encreddesign.grocery.fragments.manager.FragmentManager;
 import com.encreddesign.grocery.tasks.TaskHandler;
 
@@ -80,6 +81,7 @@ public class BaseActivity extends GroceryActivity {
                 .addFragment(new OutstandingItemsFragment())
                 .addFragment(new CompletedItemsFragment())
                 .addFragment(new EditItemFragment())
+                .addFragment(new ViewItemFragment())
                 .addFloatingAction(this.mFloatingButton, "ItemsFragment")
                 .replaceFragment("ItemsFragment", true, true);
 

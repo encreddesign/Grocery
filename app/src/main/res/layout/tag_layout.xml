@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingLeft="@dimen/item_tagPaddingWidth"
+    android:paddingRight="@dimen/item_tagPaddingWidth"
+    android:paddingTop="@dimen/item_tagPaddingHeight"
+    android:paddingBottom="@dimen/item_tagPaddingHeight"
+    android:textColor="@color/colorWhite"
+    android:background="@drawable/tag_bg">
+
+</TextView>

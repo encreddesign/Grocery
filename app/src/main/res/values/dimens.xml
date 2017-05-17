@@ -22,6 +22,8 @@
     <dimen name="item_categoryMaxWidth">130dp</dimen>
     <dimen name="item_categoryMarginBottom">7dp</dimen>
 
+    <dimen name="item_tagMarginTop">7dp</dimen>
+
     <dimen name="item_offsetMargin">-10dp</dimen>
 
     <dimen name="item_checkboxSize">40dp</dimen>
@@ -31,4 +33,8 @@
 
     <!-- Item Edit -->
     <dimen name="item_categorySpinnerPadding">15dp</dimen>
+    <dimen name="item_tagsMarginTop">15dp</dimen>
+    <dimen name="item_tagPaddingHeight">7dp</dimen>
+    <dimen name="item_tagPaddingWidth">20dp</dimen>
+    <dimen name="item_tagRadius">5dp</dimen>
 </resources>
