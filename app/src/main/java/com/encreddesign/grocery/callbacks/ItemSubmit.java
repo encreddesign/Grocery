@@ -16,22 +16,28 @@ public class ItemSubmit implements Runnable {
     private final GroceryFragment mFragment;
     private final ItemsMapper mItemMapper;
 
+    private final boolean mDoUpdate;
     private final GroceryEntity mEntity;
 
-    public ItemSubmit (GroceryFragment mFragment, TaskHandler handler, ItemsMapper mapper, GroceryEntity entity) {
+    public ItemSubmit (GroceryFragment mFragment, TaskHandler handler, ItemsMapper mapper, GroceryEntity entity, boolean update) {
 
         this.mHandler = handler;
         this.mFragment = mFragment;
         this.mItemMapper = mapper;
 
         this.mEntity = entity;
+        this.mDoUpdate = update;
 
     }
 
     @Override
     public void run() {
 
-        this.mItemMapper.addItem(this.mEntity);
+        if(!this.mDoUpdate) {
+            this.mItemMapper.addItem(this.mEntity);
+        } else {
+            this.mItemMapper.updateItem(this.mEntity);
+        }
 
         this.mHandler.ui(new Runnable() {
             @Override

@@ -1,5 +1,6 @@
 package com.encreddesign.grocery.fragments;
 
+import android.app.Fragment;
 import android.content.Context;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -7,6 +8,9 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridLayout;
@@ -33,6 +37,8 @@ public class ViewItemFragment extends GroceryFragment {
     private ViewGroup mParentView;
     private Resources mResources;
 
+    private int mDbId = -1;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,11 +61,35 @@ public class ViewItemFragment extends GroceryFragment {
 
         this.mItemTags = (ViewGroup) view.findViewById(R.id.item_view_tags_container);
 
-        if(this.getArguments() != null) {
-            this.populateViews(((BaseActivity) getActivity()).getBaseContext(), this.getArguments().getInt("dbId"));
+        if(this.getArguments() != null && this.getArguments().getInt("dbId") != -1) {
+            this.mDbId = this.getArguments().getInt("dbId");
+            this.populateViews(((BaseActivity) getActivity()).getBaseContext(), this.mDbId);
         }
 
         return view;
+
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.menu_item_view_fragment, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch(item.getItemId()) {
+
+            case R.id.edit_item_btn:
+                this.goEditItemFragment();
+                break;
+            default:
+                break;
+
+        }
+
+        return true;
 
     }
 
@@ -125,6 +155,30 @@ public class ViewItemFragment extends GroceryFragment {
         );
         textView.setTextColor(ContextCompat.getColor(context, R.color.colorWhite));
         textView.setBackground(ContextCompat.getDrawable(context, R.drawable.tag_bg));
+
+    }
+
+    void goEditItemFragment () {
+
+        final Bundle bundle = new Bundle();
+        bundle.putInt("dbId", this.mDbId);
+
+        final Fragment fragment = ((BaseActivity) getActivity()).mFragmentManager.getFragment("EditItemFragment");
+
+        if(fragment.getArguments() != null) {
+
+            fragment.getArguments().clear();
+            fragment.getArguments().putAll(bundle);
+
+        } else {
+            fragment.setArguments(bundle);
+        }
+
+        ((BaseActivity) getActivity()).getFragmentManager()
+                .beginTransaction()
+                .addToBackStack("EditItemFragment")
+                .replace(R.id.baseFrame, fragment)
+                .commit();
 
     }
 

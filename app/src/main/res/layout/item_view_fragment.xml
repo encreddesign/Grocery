@@ -8,8 +8,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/app_fragment_margin"
-        android:orientation="vertical">
+        android:padding="@dimen/app_fragment_margin"
+        android:orientation="vertical"
+        android:background="@color/colorWhite">
 
         <TextView
             android:layout_width="wrap_content"
@@ -49,22 +50,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/item_nameMarginBottom"
-            android:text="@string/view_tags_label"
-            android:textSize="@dimen/item_font_size"
-            android:textColor="@color/colorPrimary"
-            android:textStyle="bold"/>
-
-        <GridLayout
-            android:id="@+id/item_view_tags_container"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/item_tagsMarginTop"
-            android:columnCount="3"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/item_nameMarginBottom"
             android:text="@string/edit_categories_label"
             android:textSize="@dimen/item_font_size"
             android:textColor="@color/colorPrimary"
@@ -77,6 +62,22 @@
             android:layout_margin="@dimen/item_nameMarginBottom"
             android:textSize="@dimen/item_font_size"
             android:text="@string/item_view_default"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/item_nameMarginBottom"
+            android:text="@string/view_tags_label"
+            android:textSize="@dimen/item_font_size"
+            android:textColor="@color/colorPrimary"
+            android:textStyle="bold"/>
+
+        <GridLayout
+            android:id="@+id/item_view_tags_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/item_tagsMarginTop"
+            android:columnCount="3"/>
 
     </LinearLayout>
 

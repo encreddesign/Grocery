@@ -1,6 +1,5 @@
 package com.encreddesign.grocery.fragments.adapter;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
@@ -11,13 +10,7 @@ import android.widget.TextView;
 
 import com.encreddesign.grocery.BaseActivity;
 import com.encreddesign.grocery.R;
-import com.encreddesign.grocery.db.category.CategoryEntity;
-import com.encreddesign.grocery.db.category.CategoryMapper;
 import com.encreddesign.grocery.db.items.GroceryEntity;
-import com.encreddesign.grocery.fragments.GroceryFragment;
-import com.encreddesign.grocery.fragments.ItemsFragment;
-
-import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -61,8 +54,11 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> 
         holder.mItemName.setText(item.getGroceryItemName());
         holder.mItemName.setTag(item.getGroceryItemId());
 
-        if(item.getExtraContent() != null) {
+        if(item.getExtraContent() != null && item.getExtraContent().length() > 0) {
             holder.mItemCategory.setText(item.getExtraContent());
+            holder.mItemCategory.setVisibility(View.VISIBLE);
+        } else {
+            holder.mItemCategory.setVisibility(View.INVISIBLE);
         }
 
         if(item.getGroceryItemTags() != null && item.getGroceryItemTags().length() > 0) {
@@ -79,10 +75,19 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> 
         bundle.putInt("dbId", dbId);
 
         final Fragment fragment = ((BaseActivity) this.mParent.getContext()).mFragmentManager.getFragment("ViewItemFragment");
-        fragment.setArguments(bundle);
+
+        if(fragment.getArguments() != null) {
+
+            fragment.getArguments().clear();
+            fragment.getArguments().putAll(bundle);
+
+        } else {
+            fragment.setArguments(bundle);
+        }
 
         ((BaseActivity) this.mParent.getContext()).getFragmentManager()
-                .beginTransaction().addToBackStack("ViewItemFragment")
+                .beginTransaction()
+                .addToBackStack("ViewItemFragment")
                 .replace(R.id.baseFrame, fragment)
                 .commit();
 

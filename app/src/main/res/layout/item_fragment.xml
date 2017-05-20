@@ -9,8 +9,9 @@
         android:id="@+id/editItemLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/app_fragment_margin"
-        android:orientation="vertical">
+        android:padding="@dimen/app_fragment_margin"
+        android:orientation="vertical"
+        android:background="@color/colorWhite">
 
         <TextView
             android:layout_width="wrap_content"

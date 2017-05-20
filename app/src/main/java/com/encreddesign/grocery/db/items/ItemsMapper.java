@@ -59,7 +59,10 @@ public class ItemsMapper {
     * @params GroceryEntity entity
     * */
     public void updateItem (GroceryEntity entity) {
+
         this.mItemsTable.doUpdate(entity);
+        Toasty.success(this.mContext, "Updated Item", Toast.LENGTH_SHORT).show();
+
     }
 
     /*
