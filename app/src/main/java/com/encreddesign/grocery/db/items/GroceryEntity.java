@@ -1,6 +1,7 @@
 package com.encreddesign.grocery.db.items;
 
 import com.encreddesign.grocery.db.AbstractEntity;
+import com.encreddesign.grocery.utils.ValueHelper;
 
 import java.io.Serializable;
 
@@ -20,9 +21,9 @@ public class GroceryEntity extends AbstractEntity implements Serializable {
 
     private int groceryItemQuantity;
 
-    private boolean groceryItemCompleted;
+    private int groceryItemCompleted;
 
-    private boolean groceryItemOutstanding;
+    private int groceryItemOutstanding;
 
     public GroceryEntity() {}
 
@@ -67,19 +68,19 @@ public class GroceryEntity extends AbstractEntity implements Serializable {
     }
 
     public void setGroceryItemCompleted (boolean value) {
-        this.groceryItemCompleted = value;
+        this.groceryItemCompleted = ValueHelper.boolToInt(value);
     }
 
     public boolean getGroceryItemCompleted () {
-        return this.groceryItemCompleted;
+        return ValueHelper.bool(this.groceryItemCompleted);
     }
 
     public void setGroceryItemOutstanding (boolean value) {
-        this.groceryItemOutstanding = value;
+        this.groceryItemOutstanding = ValueHelper.boolToInt(value);
     }
 
     public boolean getGroceryItemOutstanding () {
-        return this.groceryItemOutstanding;
+        return ValueHelper.bool(this.groceryItemOutstanding);
     }
 
 }

@@ -23,6 +23,7 @@ import com.encreddesign.grocery.R;
 import com.encreddesign.grocery.callbacks.CategoryCollecting;
 import com.encreddesign.grocery.callbacks.ItemSubmit;
 import com.encreddesign.grocery.callbacks.OnCompletionTag;
+import com.encreddesign.grocery.db.category.CategoryEntity;
 import com.encreddesign.grocery.db.category.CategoryMapper;
 import com.encreddesign.grocery.db.items.GroceryEntity;
 import com.encreddesign.grocery.db.items.ItemsMapper;
@@ -45,6 +46,7 @@ public class EditItemFragment extends GroceryFragment {
     private TaskHandler mHandler;
     private Context mContext;
     private Resources mResources;
+    private ArrayAdapter<String> mAdapter;
 
     private int mDbId = -1;
     private boolean mUpdateItem;
@@ -79,6 +81,7 @@ public class EditItemFragment extends GroceryFragment {
         );
 
         this.mSpinnerItemCategories = (Spinner) view.findViewById(R.id.item_edit_categories);
+        this.mAdapter = new ArrayAdapter<String>(this.mContext, R.layout.spinner_layout);
         this.populateSpinner(this.mSpinnerItemCategories, this.mContext);
 
         return view;
@@ -110,12 +113,10 @@ public class EditItemFragment extends GroceryFragment {
 
     void populateSpinner (Spinner spinner, Context context) {
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, R.layout.spinner_layout);
+        this.mAdapter.add(getResources().getString(R.string.spinner_category_default));
+        this.mHandler.bg(new CategoryCollecting(this, this.mHandler, new CategoryMapper(context), this.mAdapter));
 
-        adapter.add(getResources().getString(R.string.spinner_category_default));
-        this.mHandler.bg(new CategoryCollecting(this, this.mHandler, new CategoryMapper(context), adapter));
-
-        spinner.setAdapter(adapter);
+        spinner.setAdapter(this.mAdapter);
 
     }
 
@@ -158,6 +159,13 @@ public class EditItemFragment extends GroceryFragment {
 
             this.mEditItemName.setText(entity.getGroceryItemName());
             this.mEditItemQuantity.setText(String.valueOf(entity.getGroceryItemQuantity()));
+
+            CategoryEntity categoryEntity = new CategoryMapper(context).findCategoryById(entity.getGroceryItemCategory());
+            if(categoryEntity != null) {
+                this.mSpinnerItemCategories.setSelection(
+                        this.mAdapter.getPosition(categoryEntity.getCategoryName())
+                );
+            }
 
             if(entity.getGroceryItemTags() != null && entity.getGroceryItemTags().length() > 0) {
                 this.populateViewGroup(context, entity.getGroceryItemTags());

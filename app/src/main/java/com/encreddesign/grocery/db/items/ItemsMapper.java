@@ -7,6 +7,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.encreddesign.grocery.BaseActivity;
+import com.encreddesign.grocery.utils.ValueHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,6 +63,36 @@ public class ItemsMapper {
 
         this.mItemsTable.doUpdate(entity);
         Toasty.success(this.mContext, "Updated Item", Toast.LENGTH_SHORT).show();
+
+    }
+
+    /*
+    * @method updateItemColumn
+    * @params Integer id, String column, String value
+    * */
+    public void updateItemColumn (int id, String column, String value) {
+
+        this.mItemsTable.doUpdateColumn(id, column, value);
+
+    }
+
+    /*
+    * @method updateItemColumn
+    * @params Integer id, String column, Integer value
+    * */
+    public void updateItemColumn (int id, String column, int value) {
+
+        this.mItemsTable.doUpdateColumn(id, column, value);
+
+    }
+
+    /*
+    * @method updateItemColumn
+    * @params Integer id, String column, Boolean value
+    * */
+    public void updateItemColumn (int id, String column, boolean value) {
+
+        this.mItemsTable.doUpdateColumn(id, column, value);
 
     }
 
@@ -159,8 +190,8 @@ public class ItemsMapper {
         entity.setGroceryItemCategory(cursor.getInt(cursor.getColumnIndexOrThrow(ItemsTable.COLUMN_ITEM_CATEGORY)));
         entity.setGroceryItemQuantity(cursor.getInt(cursor.getColumnIndexOrThrow(ItemsTable.COLUMN_ITEM_QUANTITY)));
         entity.setGroceryItemTags(cursor.getString(cursor.getColumnIndexOrThrow(ItemsTable.COLUMN_ITEM_TAGS)));
-        entity.setGroceryItemOutstanding(Boolean.valueOf(cursor.getString(cursor.getColumnIndexOrThrow(ItemsTable.COLUMN_ITEM_OUTSTANDING))));
-        entity.setGroceryItemCompleted(Boolean.valueOf(cursor.getString(cursor.getColumnIndexOrThrow(ItemsTable.COLUMN_ITEM_COMPLETED))));
+        entity.setGroceryItemOutstanding(ValueHelper.bool(cursor.getInt(cursor.getColumnIndexOrThrow(ItemsTable.COLUMN_ITEM_OUTSTANDING))));
+        entity.setGroceryItemCompleted(ValueHelper.bool(cursor.getInt(cursor.getColumnIndexOrThrow(ItemsTable.COLUMN_ITEM_COMPLETED))));
 
         return entity;
 

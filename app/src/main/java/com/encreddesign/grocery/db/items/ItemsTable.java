@@ -125,6 +125,54 @@ public class ItemsTable {
     }
 
     /*
+    * @method doUpdateColumn
+    * @params @params Integer id, String column, String value
+    * */
+    public void doUpdateColumn (int id, String column, String value) {
+
+        final ContentValues values = new ContentValues();
+
+        values.put(column, value);
+
+        final String query = COLUMN_ITEM_ID + " =?";
+
+        this.mSqlDatabase.update(TABLE_NAME, values, query, new String[]{ String.valueOf(id) });
+
+    }
+
+    /*
+    * @method doUpdateColumn
+    * @params @params Integer id, String column, int value
+    * */
+    public void doUpdateColumn (int id, String column, int value) {
+
+        final ContentValues values = new ContentValues();
+
+        values.put(column, value);
+
+        final String query = COLUMN_ITEM_ID + " =?";
+
+        this.mSqlDatabase.update(TABLE_NAME, values, query, new String[]{ String.valueOf(id) });
+
+    }
+
+    /*
+    * @method doUpdateColumn
+    * @params @params Integer id, String column, Boolean value
+    * */
+    public void doUpdateColumn (int id, String column, boolean value) {
+
+        final ContentValues values = new ContentValues();
+
+        values.put(column, value);
+
+        final String query = COLUMN_ITEM_ID + " =?";
+
+        this.mSqlDatabase.update(TABLE_NAME, values, query, new String[]{ String.valueOf(id) });
+
+    }
+
+    /*
     * @method doDelete
     * @params Integer itemId
     * */

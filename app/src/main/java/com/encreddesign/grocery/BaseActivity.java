@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.encreddesign.grocery.callbacks.FabTriggerAnimation;
+import com.encreddesign.grocery.callbacks.FragmentCallback;
 import com.encreddesign.grocery.db.items.ItemsMapper;
 import com.encreddesign.grocery.fragments.CategoryFragment;
 import com.encreddesign.grocery.fragments.CompletedItemsFragment;
@@ -35,6 +36,7 @@ public class BaseActivity extends GroceryActivity {
     public FloatingActionButton mFloatingCatButton;
 
     private BackstackManager mBackstackManager;
+    private FragmentCallback mFragmentCallback;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,17 +74,18 @@ public class BaseActivity extends GroceryActivity {
 
     void setup (Activity activity) {
 
-        this.mBackstackManager = new BackstackManager((BaseActivity) activity);
+        this.mFragmentCallback = new FragmentCallback(this);
+
+        this.mBackstackManager = new BackstackManager((BaseActivity) activity, this.mFragmentCallback);
         this.manageBackStack(this.mBackstackManager);
 
-        this.mFragmentManager = FragmentManager.newInstance(activity, R.id.baseFrame);
+        this.mFragmentManager = FragmentManager.newInstance(activity, this.mFragmentCallback, R.id.baseFrame);
         this.mFragmentManager.addFragment(new ItemsFragment())
                 .addFragment(new CategoryFragment())
                 .addFragment(new OutstandingItemsFragment())
                 .addFragment(new CompletedItemsFragment())
                 .addFragment(new EditItemFragment())
                 .addFragment(new ViewItemFragment())
-                .addFloatingAction(this.mFloatingButton, "ItemsFragment")
                 .replaceFragment("ItemsFragment", true, true);
 
         this.buildFloatingAction();
@@ -105,16 +108,12 @@ public class BaseActivity extends GroceryActivity {
         this.mFloatingItemButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mFloatingCatButton.hide();
-                mFloatingItemButton.hide();
                 mFragmentManager.replaceFragment("EditItemFragment", true, true);
             }
         });
         this.mFloatingCatButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mFloatingItemButton.hide();
-                mFloatingCatButton.hide();
                 mFragmentManager.replaceFragment("CategoryFragment", true, true);
             }
         });

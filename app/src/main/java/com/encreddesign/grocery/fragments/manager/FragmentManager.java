@@ -5,7 +5,10 @@ import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.view.animation.AnimationUtils;
 
+import com.encreddesign.grocery.R;
+import com.encreddesign.grocery.callbacks.FragmentCallbackInterface;
 import com.encreddesign.grocery.fragments.GroceryFragment;
 
 /**
@@ -20,16 +23,17 @@ public class FragmentManager {
     private FragmentMapper mFragmentMapper;
     private android.app.FragmentManager mFragmentManager;
 
-    private FloatingActionButton mFloatingButton;
-    private String mFloatingShowCondition;
+    private FragmentCallbackInterface mFragmentCallbackInterface;
 
-    FragmentManager (Activity activity, int parentLayoutId) {
+    FragmentManager (Activity activity, FragmentCallbackInterface mInterface, int parentLayoutId) {
 
         this.mActivity = activity;
         this.mParentLayoutId = parentLayoutId;
 
         this.mFragmentMapper = FragmentMapper.newInstance();
         this.mFragmentManager = activity.getFragmentManager();
+
+        this.mFragmentCallbackInterface = mInterface;
 
     }
 
@@ -41,19 +45,6 @@ public class FragmentManager {
 
         this.mFragmentMapper.addFragment(
                 FragmentHolder.newInstance(fragment, this.mParentLayoutId));
-        return this;
-
-    }
-
-    /*
-    * @method addFloatingAction
-    * @params FloatingActionButton action, String condition
-    * */
-    public FragmentManager addFloatingAction (FloatingActionButton action, String condition) {
-
-        this.mFloatingButton = action;
-        this.mFloatingShowCondition = condition;
-
         return this;
 
     }
@@ -94,10 +85,36 @@ public class FragmentManager {
     * @params String label, Boolean animate, Boolean addToBackStack
     * */
     public void replaceFragment (String label, boolean animate, boolean addToBackStack) {
+        this.applyTransaction(label, animate, addToBackStack, null);
+    }
 
+    /*
+    * @method replaceFragment
+    * @params String label, Boolean animate, Boolean addToBackStack, Bundle bundle
+    * */
+    public void replaceFragment (String label, boolean animate, boolean addToBackStack, Bundle bundle) {
+        this.applyTransaction(label, animate, addToBackStack, bundle);
+    }
+
+    private void applyTransaction (String label, boolean animate, boolean addToBackStack, Bundle bundle) {
+
+        final Fragment fragment = this.getFragment(label);
         final FragmentTransaction transaction = this.mFragmentManager.beginTransaction();
 
-        transaction.replace(this.mParentLayoutId, this.getFragment(label), label);
+        if(bundle != null) {
+
+            if(fragment.getArguments() != null) {
+
+                fragment.getArguments().clear();
+                fragment.getArguments().putAll(bundle);
+
+            } else {
+                fragment.setArguments(bundle);
+            }
+
+        }
+
+        transaction.replace(this.mParentLayoutId, fragment, label);
         if(addToBackStack) {
 
             transaction.addToBackStack(label);
@@ -110,16 +127,7 @@ public class FragmentManager {
 
         }
 
-        if(this.mFloatingButton != null && this.mFloatingShowCondition != null) {
-
-            if(label == this.mFloatingShowCondition) {
-                this.mFloatingButton.show();
-            } else {
-                this.mFloatingButton.hide();
-            }
-
-        }
-
+        this.mFragmentCallbackInterface.onFragmentLoaded(fragment);
         transaction.commit();
 
     }
@@ -143,8 +151,8 @@ public class FragmentManager {
     * @method newInstance
     * @params Context context
     * */
-    public static FragmentManager newInstance (Activity activity, int parentLayoutId) {
-        return new FragmentManager(activity, parentLayoutId);
+    public static FragmentManager newInstance (Activity activity, FragmentCallbackInterface mInterface, int parentLayoutId) {
+        return new FragmentManager(activity, mInterface, parentLayoutId);
     }
 
 }

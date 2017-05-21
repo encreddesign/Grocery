@@ -1,18 +1,28 @@
 package com.encreddesign.grocery.fragments.adapter;
 
 import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.encreddesign.grocery.BaseActivity;
 import com.encreddesign.grocery.R;
 import com.encreddesign.grocery.db.items.GroceryEntity;
+import com.encreddesign.grocery.db.items.ItemsMapper;
+import com.encreddesign.grocery.db.items.ItemsTable;
+import com.encreddesign.grocery.utils.ValueHelper;
 
 import java.util.List;
+
+import es.dmoral.toasty.Toasty;
 
 /**
  * Created by Joshua on 06/05/2017.
@@ -42,6 +52,13 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> 
             }
         });
 
+        holder.mItemStatus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                completeItem(view, Integer.valueOf(view.getTag().toString()));
+            }
+        });
+
         return holder;
 
     }
@@ -53,6 +70,13 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> 
 
         holder.mItemName.setText(item.getGroceryItemName());
         holder.mItemName.setTag(item.getGroceryItemId());
+
+        holder.mItemStatus.setTag(item.getGroceryItemId());
+        if(item.getGroceryItemCompleted()) {
+            holder.mItemStatus.setBackgroundColor(ContextCompat.getColor(this.mParent.getContext(), R.color.colorGreen));
+        } else {
+            holder.mItemStatus.setBackgroundColor(ContextCompat.getColor(this.mParent.getContext(), R.color.colorPrimary));
+        }
 
         if(item.getExtraContent() != null && item.getExtraContent().length() > 0) {
             holder.mItemCategory.setText(item.getExtraContent());
@@ -74,22 +98,28 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> 
         final Bundle bundle = new Bundle();
         bundle.putInt("dbId", dbId);
 
-        final Fragment fragment = ((BaseActivity) this.mParent.getContext()).mFragmentManager.getFragment("ViewItemFragment");
+        ((BaseActivity) this.mParent.getContext()).mFragmentManager.replaceFragment("ViewItemFragment", true, true, bundle);
+    }
 
-        if(fragment.getArguments() != null) {
+    void completeItem (View view, int dbId) {
 
-            fragment.getArguments().clear();
-            fragment.getArguments().putAll(bundle);
+        final ItemsMapper mapper = new ItemsMapper(this.mParent.getContext());
 
-        } else {
-            fragment.setArguments(bundle);
+        try {
+
+            mapper.updateItemColumn(dbId, ItemsTable.COLUMN_ITEM_COMPLETED, 1);
+
+            if(mapper.findItemById(dbId).getGroceryItemCompleted()) {
+
+                Toasty.success(this.mParent.getContext(), "Item Completed", Toast.LENGTH_SHORT).show();
+                view.setBackgroundColor(ContextCompat.getColor(this.mParent.getContext(), R.color.colorGreen));
+
+            }
+
+        } catch (Exception ex) {
+            Log.e(BaseActivity.LOG_TAG, "Error", ex);
+            Toasty.error(this.mParent.getContext(), ex.getMessage(), Toast.LENGTH_SHORT).show();
         }
-
-        ((BaseActivity) this.mParent.getContext()).getFragmentManager()
-                .beginTransaction()
-                .addToBackStack("ViewItemFragment")
-                .replace(R.id.baseFrame, fragment)
-                .commit();
 
     }
 
@@ -101,6 +131,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> 
         public TextView mItemName;
         public TextView mItemCategory;
         public TextView mItemTags;
+        public RelativeLayout mItemStatus;
 
         ViewHolder (View view) {
             super(view);
@@ -108,6 +139,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> 
             mItemName = (TextView) view.findViewById(R.id.groceryItemName);
             mItemCategory = (TextView) view.findViewById(R.id.groceryItemCategory);
             mItemTags = (TextView) view.findViewById(R.id.groceryItemTags);
+            mItemStatus = (RelativeLayout) view.findViewById(R.id.groceryItemCheckbox);
 
         }
 

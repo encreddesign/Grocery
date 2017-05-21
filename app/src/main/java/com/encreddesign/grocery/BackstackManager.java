@@ -1,5 +1,6 @@
 package com.encreddesign.grocery;
 
+import com.encreddesign.grocery.callbacks.FragmentCallbackInterface;
 import com.encreddesign.grocery.fragments.GroceryFragment;
 import com.encreddesign.grocery.fragments.ItemsFragment;
 
@@ -10,9 +11,13 @@ import com.encreddesign.grocery.fragments.ItemsFragment;
 public class BackstackManager {
 
     private final BaseActivity mActivity;
+    private final FragmentCallbackInterface mFragmentInterfaceCallback;
 
-    public BackstackManager (BaseActivity activity) {
+    public BackstackManager (BaseActivity activity, FragmentCallbackInterface mInterface) {
+
         this.mActivity = activity;
+        this.mFragmentInterfaceCallback = mInterface;
+
     }
 
     public void manage () {
@@ -25,11 +30,7 @@ public class BackstackManager {
     void floatingActionButton () {
 
         GroceryFragment fragment = (GroceryFragment) this.mActivity.getFragmentManager().findFragmentById(R.id.baseFrame);
-        if(fragment instanceof ItemsFragment) {
-            this.mActivity.mFloatingButton.show();
-            this.mActivity.mFloatingCatButton.show();
-            this.mActivity.mFloatingItemButton.show();
-        }
+        this.mFragmentInterfaceCallback.onFragmentLoaded(fragment);
 
     }
 

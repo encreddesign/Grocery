@@ -15,8 +15,8 @@ public class SQLTableStrings {
             ItemsTable.COLUMN_ITEM_CATEGORY + " INTEGER DEFAULT 0," +
             ItemsTable.COLUMN_ITEM_TAGS + " TEXT," +
             ItemsTable.COLUMN_ITEM_QUANTITY + " INTEGER DEFAULT 0," +
-            ItemsTable.COLUMN_ITEM_OUTSTANDING + " BOOLEAN DEFAULT FALSE," +
-            ItemsTable.COLUMN_ITEM_COMPLETED + " BOOLEAN DEFAULT FALSE" +
+            ItemsTable.COLUMN_ITEM_OUTSTANDING + " INTEGER DEFAULT 0," +
+            ItemsTable.COLUMN_ITEM_COMPLETED + " INTEGER DEFAULT 0" +
             ")";
 
     public static final String SQL_CATEGORY_TABLE = "CREATE TABLE " + CategoryTable.TABLE_NAME + " (" +

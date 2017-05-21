@@ -9,6 +9,7 @@ import android.widget.Toast;
 import com.encreddesign.grocery.BaseActivity;
 import com.encreddesign.grocery.db.items.GroceryEntity;
 import com.encreddesign.grocery.db.items.ItemsTable;
+import com.encreddesign.grocery.utils.ValueHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -199,8 +200,8 @@ public class CategoryMapper {
         entity.setGroceryItemCategory(cursor.getInt(cursor.getColumnIndexOrThrow(ItemsTable.COLUMN_ITEM_CATEGORY)));
         entity.setGroceryItemQuantity(cursor.getInt(cursor.getColumnIndexOrThrow(ItemsTable.COLUMN_ITEM_QUANTITY)));
         entity.setGroceryItemTags(cursor.getString(cursor.getColumnIndexOrThrow(ItemsTable.COLUMN_ITEM_TAGS)));
-        entity.setGroceryItemOutstanding(Boolean.valueOf(cursor.getString(cursor.getColumnIndexOrThrow(ItemsTable.COLUMN_ITEM_OUTSTANDING))));
-        entity.setGroceryItemCompleted(Boolean.valueOf(cursor.getString(cursor.getColumnIndexOrThrow(ItemsTable.COLUMN_ITEM_COMPLETED))));
+        entity.setGroceryItemOutstanding(ValueHelper.bool(cursor.getInt(cursor.getColumnIndexOrThrow(ItemsTable.COLUMN_ITEM_OUTSTANDING))));
+        entity.setGroceryItemCompleted(ValueHelper.bool(cursor.getInt(cursor.getColumnIndexOrThrow(ItemsTable.COLUMN_ITEM_COMPLETED))));
 
         return entity;
 

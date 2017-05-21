@@ -163,22 +163,7 @@ public class ViewItemFragment extends GroceryFragment {
         final Bundle bundle = new Bundle();
         bundle.putInt("dbId", this.mDbId);
 
-        final Fragment fragment = ((BaseActivity) getActivity()).mFragmentManager.getFragment("EditItemFragment");
-
-        if(fragment.getArguments() != null) {
-
-            fragment.getArguments().clear();
-            fragment.getArguments().putAll(bundle);
-
-        } else {
-            fragment.setArguments(bundle);
-        }
-
-        ((BaseActivity) getActivity()).getFragmentManager()
-                .beginTransaction()
-                .addToBackStack("EditItemFragment")
-                .replace(R.id.baseFrame, fragment)
-                .commit();
+        ((BaseActivity) this.mParentView.getContext()).mFragmentManager.replaceFragment("EditItemFragment", true, true, bundle);
 
     }
 
