@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.encreddesign.grocery.db.GrocerySQLiteOpenHelper;
+import com.encreddesign.grocery.utils.ValueHelper;
 
 /**
  * Created by Joshua on 10/05/2017.
@@ -54,26 +55,24 @@ public class ItemsTable {
     }
 
     /*
-    * @method findItemsByOuts
-    * @params Integer itemId
+    * @method findItemsByComp
     * */
-    public Cursor findItemsByOuts (int itemId) {
+    public Cursor findItemsByComp () {
 
-        String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + COLUMN_ITEM_ID + " =? AND " + COLUMN_ITEM_OUTSTANDING + " =?";
+        String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + COLUMN_ITEM_COMPLETED + " =?";
 
-        return this.mSqlDatabase.rawQuery(query, new String[]{ String.valueOf(itemId), String.valueOf(true) });
+        return this.mSqlDatabase.rawQuery(query, new String[]{ String.valueOf(ValueHelper.boolToInt(true)) });
 
     }
 
     /*
-    * @method findItemsByComp
-    * @params Integer itemId
+    * @method findItemsByOut
     * */
-    public Cursor findItemsByComp (int itemId) {
+    public Cursor findItemsByOut () {
 
-        String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + COLUMN_ITEM_ID + " =? AND " + COLUMN_ITEM_COMPLETED + " =?";
+        String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + COLUMN_ITEM_COMPLETED + " !=?";
 
-        return this.mSqlDatabase.rawQuery(query, new String[]{ String.valueOf(itemId), String.valueOf(true) });
+        return this.mSqlDatabase.rawQuery(query, new String[]{ String.valueOf(ValueHelper.boolToInt(true)) });
 
     }
 

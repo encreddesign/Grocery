@@ -84,6 +84,8 @@ public class EditItemFragment extends GroceryFragment {
         this.mAdapter = new ArrayAdapter<String>(this.mContext, R.layout.spinner_layout);
         this.populateSpinner(this.mSpinnerItemCategories, this.mContext);
 
+        setToolbarTitle(R.string.fragment_title_edit);
+
         return view;
 
     }
@@ -223,6 +225,16 @@ public class EditItemFragment extends GroceryFragment {
             this.prePopulateFields(this.mContext, this.mDbId);
 
         }
+
+    }
+
+    void clearFields () {
+
+        this.mEditItemName.setText("");
+        this.mEditItemQuantity.setText("");
+        this.mSpinnerItemCategories.setSelection(0);
+
+        this.mItemTagsContainer.removeAllViews();
 
     }
 

@@ -146,6 +146,21 @@ public class CategoryMapper {
     }
 
     /*
+    * @method getItemsSize
+    * */
+    public int getItemsSize (int catId) {
+
+        final List<GroceryEntity> items = this.findItemsByCatId(catId);
+
+        if(items != null) {
+            return items.size();
+        } else {
+            return 0;
+        }
+
+    }
+
+    /*
     * @method getAllCategorys
     * */
     @Nullable

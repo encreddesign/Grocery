@@ -60,6 +60,8 @@ public class ItemsFragment extends GroceryFragment {
         this.mRecyclerAdapter = new ItemsAdapter(this.mItems);
         this.mRecyclerView.setAdapter(this.mRecyclerAdapter);
 
+        setToolbarTitle(R.string.fragment_title_items);
+
         return view;
 
     }

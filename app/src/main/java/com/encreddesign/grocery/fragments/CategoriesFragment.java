@@ -11,28 +11,28 @@ import android.widget.RelativeLayout;
 
 import com.encreddesign.grocery.BaseActivity;
 import com.encreddesign.grocery.R;
-import com.encreddesign.grocery.callbacks.OutstandingItemsCollecting;
-import com.encreddesign.grocery.db.items.GroceryEntity;
-import com.encreddesign.grocery.db.items.ItemsMapper;
-import com.encreddesign.grocery.fragments.adapter.OutstandingItemsAdapter;
+import com.encreddesign.grocery.callbacks.CategoriesCollecting;
+import com.encreddesign.grocery.db.category.CategoryEntity;
+import com.encreddesign.grocery.db.category.CategoryMapper;
+import com.encreddesign.grocery.fragments.adapter.CategoriesAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Joshua on 29/04/2017.
+ * Created by Joshua on 24/05/2017.
  */
 
-public class OutstandingItemsFragment extends GroceryFragment {
+public class CategoriesFragment extends GroceryFragment {
 
     private RecyclerView mRecyclerView;
     private RecyclerView.LayoutManager mRecyclerLayout;
     public RecyclerView.Adapter mRecyclerAdapter;
 
     public RelativeLayout mEmptyList;
-    public List<GroceryEntity> mItems;
+    public List<CategoryEntity> mItems;
 
-    public OutstandingItemsFragment () {
+    public CategoriesFragment () {
         this.mItems = new ArrayList<>();
     }
 
@@ -55,10 +55,10 @@ public class OutstandingItemsFragment extends GroceryFragment {
         this.mRecyclerLayout = new LinearLayoutManager(view.getContext());
         this.mRecyclerView.setLayoutManager(this.mRecyclerLayout);
 
-        this.mRecyclerAdapter = new OutstandingItemsAdapter(this.mItems);
+        this.mRecyclerAdapter = new CategoriesAdapter(this.mItems);
         this.mRecyclerView.setAdapter(this.mRecyclerAdapter);
 
-        setToolbarTitle(R.string.fragment_title_outstanding);
+        setToolbarTitle(R.string.fragment_title_categories);
 
         return view;
 
@@ -66,8 +66,8 @@ public class OutstandingItemsFragment extends GroceryFragment {
 
     void populateListAdapter () {
 
-        ((BaseActivity) getActivity()).mTaskHandler.bg(new OutstandingItemsCollecting(this, ((BaseActivity) getActivity()).mTaskHandler,
-                new ItemsMapper(this.getActivity().getBaseContext())));
+        ((BaseActivity) getActivity()).mTaskHandler.bg(new CategoriesCollecting(this, ((BaseActivity) getActivity()).mTaskHandler,
+                new CategoryMapper(this.getActivity().getBaseContext())));
 
     }
 

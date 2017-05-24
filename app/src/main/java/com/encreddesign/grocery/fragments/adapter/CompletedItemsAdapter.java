@@ -22,15 +22,15 @@ import java.util.List;
 import es.dmoral.toasty.Toasty;
 
 /**
- * Created by Joshua on 06/05/2017.
+ * Created by Joshua on 24/05/2017.
  */
 
-public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> {
+public class CompletedItemsAdapter extends RecyclerView.Adapter<CompletedItemsAdapter.ViewHolder> {
 
     private ViewGroup mParent;
     private final List<GroceryEntity> mItems;
 
-    public ItemsAdapter (List<GroceryEntity> items) {
+    public CompletedItemsAdapter (List<GroceryEntity> items) {
         this.mItems = items;
     }
 
@@ -100,23 +100,20 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> 
 
     void updateItemStatus (View view, int dbId) {
 
+        final View rowView = (View) view.getParent().getParent();
         final ItemsMapper mapper = new ItemsMapper(this.mParent.getContext());
 
         try {
 
-            if(!mapper.findItemById(dbId).getGroceryItemCompleted()) {
-
-                mapper.updateItemColumn(dbId, ItemsTable.COLUMN_ITEM_COMPLETED, 1);
-
-                Toasty.success(this.mParent.getContext(), "Item Completed", Toast.LENGTH_SHORT).show();
-                view.setBackgroundColor(ContextCompat.getColor(this.mParent.getContext(), R.color.colorGreen));
-
-            } else {
+            if(mapper.findItemById(dbId).getGroceryItemCompleted()) {
 
                 mapper.updateItemColumn(dbId, ItemsTable.COLUMN_ITEM_COMPLETED, 0);
 
                 Toasty.success(this.mParent.getContext(), "Item Outstanding", Toast.LENGTH_SHORT).show();
-                view.setBackgroundColor(ContextCompat.getColor(this.mParent.getContext(), R.color.colorPrimary));
+                view.setBackgroundColor(ContextCompat.getColor(this.mParent.getContext(), R.color.colorGreen));
+
+                this.mItems.remove(mParent.indexOfChild(rowView));
+                notifyDataSetChanged();
 
             }
 
@@ -153,4 +150,5 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> 
     public int getItemCount() {
         return this.mItems.size();
     }
+
 }

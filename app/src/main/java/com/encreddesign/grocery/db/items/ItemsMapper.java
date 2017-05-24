@@ -151,6 +151,60 @@ public class ItemsMapper {
     }
 
     /*
+    * @method findItemsByComp
+    * */
+    @Nullable
+    public List<GroceryEntity> findItemsByComp () {
+
+        Cursor cursor = this.mItemsTable.findItemsByComp();
+
+        if(!cursor.moveToFirst()) {
+
+            cursor.close();
+            return null;
+
+        }
+
+        List<GroceryEntity> list = new ArrayList<>();
+
+        do {
+            list.add(this.getFromCursor(cursor));
+        } while (cursor.moveToNext());
+
+        cursor.close();
+
+        return list;
+
+    }
+
+    /*
+    * @method findItemsByOut
+    * */
+    @Nullable
+    public List<GroceryEntity> findItemsByOut () {
+
+        Cursor cursor = this.mItemsTable.findItemsByOut();
+
+        if(!cursor.moveToFirst()) {
+
+            cursor.close();
+            return null;
+
+        }
+
+        List<GroceryEntity> list = new ArrayList<>();
+
+        do {
+            list.add(this.getFromCursor(cursor));
+        } while (cursor.moveToNext());
+
+        cursor.close();
+
+        return list;
+
+    }
+
+    /*
     * @method getAllItems
     * */
     @Nullable

@@ -2,7 +2,11 @@ package com.encreddesign.grocery.fragments;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.support.v7.widget.Toolbar;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.encreddesign.grocery.R;
 
 import es.dmoral.toasty.Toasty;
 
@@ -50,6 +54,20 @@ public class GroceryFragment extends Fragment {
                 break;
 
         }
+
+    }
+
+    void setToolbarTitle (int resId) {
+
+        TextView toolbar = (TextView) getActivity().findViewById(R.id.toolbarTitle);
+        toolbar.setText(getString(resId));
+
+    }
+
+    void setToolbarTitle (String title) {
+
+        TextView toolbar = (TextView) getActivity().findViewById(R.id.toolbarTitle);
+        toolbar.setText(title);
 
     }
 

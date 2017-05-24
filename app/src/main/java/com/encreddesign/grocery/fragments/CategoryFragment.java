@@ -46,6 +46,8 @@ public class CategoryFragment extends GroceryFragment {
         this.mEditCatName = (EditText) view.findViewById(R.id.category_edit_name);
         this.mEditCatName.setFocusable(true);
 
+        setToolbarTitle(R.string.fragment_title_category);
+
         return view;
 
     }

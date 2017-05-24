@@ -6,25 +6,25 @@ import com.encreddesign.grocery.db.category.CategoryEntity;
 import com.encreddesign.grocery.db.category.CategoryMapper;
 import com.encreddesign.grocery.db.items.GroceryEntity;
 import com.encreddesign.grocery.db.items.ItemsMapper;
+import com.encreddesign.grocery.fragments.CompletedItemsFragment;
 import com.encreddesign.grocery.fragments.GroceryFragment;
-import com.encreddesign.grocery.fragments.ItemsFragment;
 import com.encreddesign.grocery.tasks.TaskHandler;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Joshua on 12/05/2017.
+ * Created by Joshua on 24/05/2017.
  */
 
-public class ItemsCollecting implements Runnable {
+public class CompletedItemsCollecting implements Runnable {
 
     private final ItemsMapper mItemsMapper;
 
     private final TaskHandler mHandler;
     private final GroceryFragment mFragment;
 
-    public ItemsCollecting (GroceryFragment fragment, TaskHandler handler, ItemsMapper mapper) {
+    public CompletedItemsCollecting (GroceryFragment fragment, TaskHandler handler, ItemsMapper mapper) {
 
         this.mHandler = handler;
         this.mItemsMapper = mapper;
@@ -36,10 +36,10 @@ public class ItemsCollecting implements Runnable {
     @Override
     public void run() {
 
-        final ItemsFragment fragment = ((ItemsFragment) mFragment);
+        final CompletedItemsFragment fragment = ((CompletedItemsFragment) mFragment);
 
         final List<GroceryEntity> items = new ArrayList<>();
-        final List<GroceryEntity> itemsMapper = this.mItemsMapper.getAllItems();
+        final List<GroceryEntity> itemsMapper = this.mItemsMapper.findItemsByComp();
 
         if(itemsMapper != null) {
 

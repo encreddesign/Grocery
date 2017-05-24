@@ -1,6 +1,17 @@
 <resources>
     <string name="app_name">Grocery</string>
     <string name="action_settings">Settings</string>
+    <string name="action_categories">Categories</string>
+    <string name="action_completed">Completed Items</string>
+    <string name="action_outstanding">Outstanding Items</string>
+
+    <!-- Fragment Titles -->
+    <string name="fragment_title_items">Items</string>
+    <string name="fragment_title_completed">Completed Items</string>
+    <string name="fragment_title_outstanding">Outstanding Items</string>
+    <string name="fragment_title_edit">Edit Item</string>
+    <string name="fragment_title_category">Edit Category</string>
+    <string name="fragment_title_categories">Categories</string>
 
     <!-- Defaults -->
     <string name="item_name_default">Grocery Item</string>

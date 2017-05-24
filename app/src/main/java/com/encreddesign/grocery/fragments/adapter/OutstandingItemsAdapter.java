@@ -22,15 +22,15 @@ import java.util.List;
 import es.dmoral.toasty.Toasty;
 
 /**
- * Created by Joshua on 06/05/2017.
+ * Created by Joshua on 24/05/2017.
  */
 
-public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> {
+public class OutstandingItemsAdapter extends RecyclerView.Adapter<OutstandingItemsAdapter.ViewHolder> {
 
     private ViewGroup mParent;
     private final List<GroceryEntity> mItems;
 
-    public ItemsAdapter (List<GroceryEntity> items) {
+    public OutstandingItemsAdapter (List<GroceryEntity> items) {
         this.mItems = items;
     }
 
@@ -52,7 +52,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> 
         holder.mItemStatus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                updateItemStatus(view, Integer.valueOf(view.getTag().toString()));
+                completeItem(view, Integer.valueOf(view.getTag().toString()));
             }
         });
 
@@ -98,8 +98,9 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> 
         ((BaseActivity) this.mParent.getContext()).mFragmentManager.replaceFragment("ViewItemFragment", true, true, bundle);
     }
 
-    void updateItemStatus (View view, int dbId) {
+    void completeItem (View view, int dbId) {
 
+        final View rowView = (View) view.getParent().getParent();
         final ItemsMapper mapper = new ItemsMapper(this.mParent.getContext());
 
         try {
@@ -111,12 +112,8 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> 
                 Toasty.success(this.mParent.getContext(), "Item Completed", Toast.LENGTH_SHORT).show();
                 view.setBackgroundColor(ContextCompat.getColor(this.mParent.getContext(), R.color.colorGreen));
 
-            } else {
-
-                mapper.updateItemColumn(dbId, ItemsTable.COLUMN_ITEM_COMPLETED, 0);
-
-                Toasty.success(this.mParent.getContext(), "Item Outstanding", Toast.LENGTH_SHORT).show();
-                view.setBackgroundColor(ContextCompat.getColor(this.mParent.getContext(), R.color.colorPrimary));
+                this.mItems.remove(mParent.indexOfChild(rowView));
+                notifyDataSetChanged();
 
             }
 
@@ -153,4 +150,5 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> 
     public int getItemCount() {
         return this.mItems.size();
     }
+
 }

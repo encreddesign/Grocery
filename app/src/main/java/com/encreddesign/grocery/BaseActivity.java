@@ -11,6 +11,7 @@ import android.view.View;
 import com.encreddesign.grocery.callbacks.FabTriggerAnimation;
 import com.encreddesign.grocery.callbacks.FragmentCallback;
 import com.encreddesign.grocery.db.items.ItemsMapper;
+import com.encreddesign.grocery.fragments.CategoriesFragment;
 import com.encreddesign.grocery.fragments.CategoryFragment;
 import com.encreddesign.grocery.fragments.CompletedItemsFragment;
 import com.encreddesign.grocery.fragments.EditItemFragment;
@@ -64,8 +65,21 @@ public class BaseActivity extends GroceryActivity {
 
         int id = item.getItemId();
 
-        if (id == R.id.action_settings) {
+        if(id == R.id.action_categories) {
+
+            this.mFragmentManager.replaceFragment("CategoriesFragment", true, true);
             return true;
+
+        } else if (id == R.id.action_completed) {
+
+            this.mFragmentManager.replaceFragment("CompletedItemsFragment", true, true);
+            return true;
+
+        } else if(id == R.id.action_outstanding) {
+
+            this.mFragmentManager.replaceFragment("OutstandingItemsFragment", true, true);
+            return true;
+
         }
 
         return super.onOptionsItemSelected(item);
@@ -82,6 +96,7 @@ public class BaseActivity extends GroceryActivity {
         this.mFragmentManager = FragmentManager.newInstance(activity, this.mFragmentCallback, R.id.baseFrame);
         this.mFragmentManager.addFragment(new ItemsFragment())
                 .addFragment(new CategoryFragment())
+                .addFragment(new CategoriesFragment())
                 .addFragment(new OutstandingItemsFragment())
                 .addFragment(new CompletedItemsFragment())
                 .addFragment(new EditItemFragment())

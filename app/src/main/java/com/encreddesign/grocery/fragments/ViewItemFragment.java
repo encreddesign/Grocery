@@ -1,6 +1,5 @@
 package com.encreddesign.grocery.fragments;
 
-import android.app.Fragment;
 import android.content.Context;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -104,6 +103,8 @@ public class ViewItemFragment extends GroceryFragment {
             if(entity == null) {
                 throw new Exception("Unable to load item");
             }
+
+            setToolbarTitle("Item " + entity.getGroceryItemName());
 
             this.mItemName.setText(entity.getGroceryItemName());
             this.mItemQuantity.setText(String.valueOf(entity.getGroceryItemQuantity()));
