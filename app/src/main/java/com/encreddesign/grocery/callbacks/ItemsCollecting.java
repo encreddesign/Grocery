@@ -37,9 +37,14 @@ public class ItemsCollecting implements Runnable {
     public void run() {
 
         final ItemsFragment fragment = ((ItemsFragment) mFragment);
-
         final List<GroceryEntity> items = new ArrayList<>();
-        final List<GroceryEntity> itemsMapper = this.mItemsMapper.getAllItems();
+
+        List<GroceryEntity> itemsMapper = null;
+        if(fragment.getArguments() != null && fragment.getArguments().getInt("dbId") > 0) {
+            itemsMapper = this.mItemsMapper.findItemsByCat(fragment.getArguments().getInt("dbId"));
+        } else {
+            itemsMapper = this.mItemsMapper.getAllItems();
+        }
 
         if(itemsMapper != null) {
 
@@ -60,6 +65,7 @@ public class ItemsCollecting implements Runnable {
                 public void run() {
 
                     fragment.mEmptyList.setVisibility(View.GONE);
+                    fragment.mRecyclerView.getRecycledViewPool().clear();
                     fragment.mRecyclerAdapter.notifyDataSetChanged();
 
                 }

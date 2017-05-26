@@ -25,8 +25,8 @@ import java.util.List;
 
 public class OutstandingItemsFragment extends GroceryFragment {
 
-    private RecyclerView mRecyclerView;
     private RecyclerView.LayoutManager mRecyclerLayout;
+    public RecyclerView mRecyclerView;
     public RecyclerView.Adapter mRecyclerAdapter;
 
     public RelativeLayout mEmptyList;

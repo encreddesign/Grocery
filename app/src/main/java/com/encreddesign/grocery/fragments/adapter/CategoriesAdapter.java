@@ -63,7 +63,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Vi
         final Bundle bundle = new Bundle();
         bundle.putInt("dbId", dbId);
 
-        ((BaseActivity) this.mParent.getContext()).mFragmentManager.replaceFragment("ViewCategoryFragment", true, true, bundle);
+        ((BaseActivity) this.mParent.getContext()).mFragmentManager.replaceFragment("CategoryItemsFragment", true, true, bundle);
     }
 
     /*

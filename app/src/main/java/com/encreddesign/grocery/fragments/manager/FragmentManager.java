@@ -85,7 +85,7 @@ public class FragmentManager {
     * @params String label, Boolean animate, Boolean addToBackStack
     * */
     public void replaceFragment (String label, boolean animate, boolean addToBackStack) {
-        this.applyTransaction(label, animate, addToBackStack, null);
+        this.applyTransaction(label, animate, addToBackStack, null, false);
     }
 
     /*
@@ -93,13 +93,20 @@ public class FragmentManager {
     * @params String label, Boolean animate, Boolean addToBackStack, Bundle bundle
     * */
     public void replaceFragment (String label, boolean animate, boolean addToBackStack, Bundle bundle) {
-        this.applyTransaction(label, animate, addToBackStack, bundle);
+        this.applyTransaction(label, animate, addToBackStack, bundle, false);
     }
 
-    private void applyTransaction (String label, boolean animate, boolean addToBackStack, Bundle bundle) {
+    /*
+    * @method replaceFragment
+    * @params String label, Boolean animate, Boolean addToBackStack, Boolean clearArgs
+    * */
+    public void replaceFragment (String label, boolean animate, boolean addToBackStack, boolean clearArgs) {
+        this.applyTransaction(label, animate, addToBackStack, null, clearArgs);
+    }
+
+    private void applyTransaction (String label, boolean animate, boolean addToBackStack, Bundle bundle, boolean clearArgs) {
 
         final Fragment fragment = this.getFragment(label);
-        final FragmentTransaction transaction = this.mFragmentManager.beginTransaction();
 
         if(bundle != null) {
 
@@ -113,6 +120,12 @@ public class FragmentManager {
             }
 
         }
+
+        if(clearArgs && fragment.getArguments() != null) {
+            fragment.getArguments().clear();
+        }
+
+        final FragmentTransaction transaction = this.mFragmentManager.beginTransaction();
 
         transaction.replace(this.mParentLayoutId, fragment, label);
         if(addToBackStack) {

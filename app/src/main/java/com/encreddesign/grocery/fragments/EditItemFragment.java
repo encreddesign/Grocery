@@ -186,55 +186,43 @@ public class EditItemFragment extends GroceryFragment {
 
         for(int i = 0; i < splitTags.length; i++) {
 
-            TextView tag = new TextView(context);
+            LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            GridLayout parent = (GridLayout) inflater.inflate(R.layout.tag_layout, null);
 
-            this.setViewProperties(context, tag);
+            TextView tag = (TextView) parent.getChildAt(0);
             tag.setText(splitTags[i]);
             tag.setTag(splitTags[i]);
 
-            this.mItemTagsContainer.addView(tag);
+            TextView tagClear = (TextView) parent.getChildAt(1);
+            tagClear.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mItemTagsContainer.removeView(((View) view.getParent()));
+                }
+            });
+
+            this.mItemTagsContainer.addView(parent);
 
         }
 
     }
 
-    void setViewProperties (Context context, TextView textView) {
-
-        GridLayout.LayoutParams params = new GridLayout.LayoutParams();
-        params.setMargins(0, 0, 10, 0);
-
-        textView.setLayoutParams(params);
-        textView.setPadding(
-                (int) this.mResources.getDimension(R.dimen.item_tagPaddingWidth),
-                (int) this.mResources.getDimension(R.dimen.item_tagPaddingHeight),
-                (int) this.mResources.getDimension(R.dimen.item_tagPaddingWidth),
-                (int) this.mResources.getDimension(R.dimen.item_tagPaddingHeight)
-        );
-        textView.setTextColor(ContextCompat.getColor(context, R.color.colorWhite));
-        textView.setBackground(ContextCompat.getDrawable(context, R.drawable.tag_bg));
-
-    }
-
     void resetFields () {
 
-        if(this.getArguments() != null && this.getArguments().getInt("dbId") != -1) {
+        if(this.getArguments() != null && this.getArguments().getInt("dbId") > 0) {
 
             this.mUpdateItem = true;
             this.mDbId = this.getArguments().getInt("dbId");
 
             this.prePopulateFields(this.mContext, this.mDbId);
 
+        } else {
+
+            this.mEditItemName.setText("");
+            this.mEditItemQuantity.setText("");
+            this.mSpinnerItemCategories.setSelection(0);
+
         }
-
-    }
-
-    void clearFields () {
-
-        this.mEditItemName.setText("");
-        this.mEditItemQuantity.setText("");
-        this.mSpinnerItemCategories.setSelection(0);
-
-        this.mItemTagsContainer.removeAllViews();
 
     }
 

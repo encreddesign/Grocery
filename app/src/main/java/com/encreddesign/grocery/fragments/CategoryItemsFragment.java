@@ -11,28 +11,29 @@ import android.widget.RelativeLayout;
 
 import com.encreddesign.grocery.BaseActivity;
 import com.encreddesign.grocery.R;
-import com.encreddesign.grocery.callbacks.CategoriesCollecting;
-import com.encreddesign.grocery.db.category.CategoryEntity;
+import com.encreddesign.grocery.callbacks.CategoryItemsCollecting;
 import com.encreddesign.grocery.db.category.CategoryMapper;
-import com.encreddesign.grocery.fragments.adapter.CategoriesAdapter;
+import com.encreddesign.grocery.db.items.GroceryEntity;
+import com.encreddesign.grocery.db.items.ItemsMapper;
+import com.encreddesign.grocery.fragments.adapter.ItemsAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Joshua on 24/05/2017.
+ * Created by Joshua on 26/05/2017.
  */
 
-public class CategoriesFragment extends GroceryFragment {
+public class CategoryItemsFragment extends GroceryFragment {
 
     private RecyclerView.LayoutManager mRecyclerLayout;
     public RecyclerView mRecyclerView;
     public RecyclerView.Adapter mRecyclerAdapter;
 
     public RelativeLayout mEmptyList;
-    public List<CategoryEntity> mItems;
+    public List<GroceryEntity> mItems;
 
-    public CategoriesFragment () {
+    public CategoryItemsFragment () {
         this.mItems = new ArrayList<>();
     }
 
@@ -55,10 +56,10 @@ public class CategoriesFragment extends GroceryFragment {
         this.mRecyclerLayout = new LinearLayoutManager(view.getContext());
         this.mRecyclerView.setLayoutManager(this.mRecyclerLayout);
 
-        this.mRecyclerAdapter = new CategoriesAdapter(this.mItems);
+        this.mRecyclerAdapter = new ItemsAdapter(this.mItems);
         this.mRecyclerView.setAdapter(this.mRecyclerAdapter);
 
-        setToolbarTitle(R.string.fragment_title_categories);
+        setToolbarTitle(R.string.fragment_title_items);
 
         return view;
 
@@ -66,7 +67,7 @@ public class CategoriesFragment extends GroceryFragment {
 
     void populateListAdapter () {
 
-        ((BaseActivity) getActivity()).mTaskHandler.bg(new CategoriesCollecting(this, ((BaseActivity) getActivity()).mTaskHandler,
+        ((BaseActivity) getActivity()).mTaskHandler.bg(new CategoryItemsCollecting(this, ((BaseActivity) getActivity()).mTaskHandler,
                 new CategoryMapper(this.getActivity().getBaseContext())));
 
     }

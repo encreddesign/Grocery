@@ -6,6 +6,7 @@ import android.content.res.Resources;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
@@ -66,13 +67,14 @@ public class OnCompletionTag implements TextView.OnEditorActionListener {
                 throw new Exception("Tag already exists");
             }
 
-            TextView textView = new TextView(this.mContext);
+            LayoutInflater inflater = (LayoutInflater)this.mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            GridLayout parent = (GridLayout) inflater.inflate(R.layout.tag_layout, null);
 
-            this.setViewProperties(textView);
+            TextView textView = (TextView) parent.getChildAt(0);
             textView.setText(tagName);
             textView.setTag(tagName);
 
-            this.mInsertView.addView(textView);
+            this.mInsertView.addView(parent);
             Toasty.success(this.mContext, "Tag added", Toast.LENGTH_SHORT).show();
 
         } catch (Exception ex) {
@@ -82,29 +84,12 @@ public class OnCompletionTag implements TextView.OnEditorActionListener {
 
     }
 
-    void setViewProperties (TextView textView) {
-
-        GridLayout.LayoutParams params = new GridLayout.LayoutParams();
-        params.setMargins(0, 0, 10, 0);
-
-        textView.setLayoutParams(params);
-        textView.setPadding(
-                (int) this.mResources.getDimension(R.dimen.item_tagPaddingWidth),
-                (int) this.mResources.getDimension(R.dimen.item_tagPaddingHeight),
-                (int) this.mResources.getDimension(R.dimen.item_tagPaddingWidth),
-                (int) this.mResources.getDimension(R.dimen.item_tagPaddingHeight)
-        );
-        textView.setTextColor(ContextCompat.getColor(this.mContext, R.color.colorWhite));
-        textView.setBackground(ContextCompat.getDrawable(this.mContext, R.drawable.tag_bg));
-
-    }
-
     boolean isAlreadyInTags (String tag) {
 
         boolean found = false;
 
         for(int i = 0; i < this.mInsertView.getChildCount(); i++) {
-            if(this.mInsertView.getChildAt(i).getTag().toString().equals(tag)) {
+            if(((ViewGroup) this.mInsertView.getChildAt(i)).getChildAt(0).getTag().toString().equals(tag)) {
 
                 found = true;
                 break;

@@ -1,18 +1,20 @@
 package com.encreddesign.grocery.fragments;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import com.encreddesign.grocery.BaseActivity;
 import com.encreddesign.grocery.R;
+import com.encreddesign.grocery.callbacks.CheckOutstanding;
 import com.encreddesign.grocery.callbacks.ItemsCollecting;
 import com.encreddesign.grocery.db.items.ItemsMapper;
 import com.encreddesign.grocery.fragments.adapter.ItemsAdapter;
@@ -27,8 +29,8 @@ import java.util.List;
 
 public class ItemsFragment extends GroceryFragment {
 
-    private RecyclerView mRecyclerView;
     private RecyclerView.LayoutManager mRecyclerLayout;
+    public RecyclerView mRecyclerView;
     public RecyclerView.Adapter mRecyclerAdapter;
 
     public RelativeLayout mEmptyList;
@@ -36,6 +38,12 @@ public class ItemsFragment extends GroceryFragment {
 
     public ItemsFragment () {
         this.mItems = new ArrayList<>();
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -63,6 +71,36 @@ public class ItemsFragment extends GroceryFragment {
         setToolbarTitle(R.string.fragment_title_items);
 
         return view;
+
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.menu_items_fragment, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch(item.getItemId()) {
+
+            case R.id.action_check_items:
+                this.checkOutstandingItems();
+                break;
+            default:
+                break;
+
+        }
+
+        return true;
+
+    }
+
+    void checkOutstandingItems () {
+
+        ((BaseActivity) getActivity()).mTaskHandler.bg(new CheckOutstanding(((BaseActivity) this.getActivity()),
+                ((BaseActivity) this.getActivity()).mTaskHandler, new ItemsMapper(this.getActivity().getBaseContext())));
 
     }
 

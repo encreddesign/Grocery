@@ -77,6 +77,18 @@ public class ItemsTable {
     }
 
     /*
+    * @method findItemsByCat
+    * @params Integer catId
+    * */
+    public Cursor findItemsByCat (int catId) {
+
+        String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + COLUMN_ITEM_CATEGORY + " !=?";
+
+        return this.mSqlDatabase.rawQuery(query, new String[]{ String.valueOf(catId) });
+
+    }
+
+    /*
     * @method getAllItems
     * */
     public Cursor getAllItems () {

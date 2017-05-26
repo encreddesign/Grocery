@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.encreddesign.grocery.BaseActivity;
@@ -131,31 +132,18 @@ public class ViewItemFragment extends GroceryFragment {
 
         for(int i = 0; i < splitTags.length; i++) {
 
-            TextView tag = new TextView(context);
+            LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            GridLayout parent = (GridLayout) inflater.inflate(R.layout.tag_layout, null);
 
-            this.setViewProperties(context, tag);
+            TextView tag = (TextView) parent.getChildAt(0);
             tag.setText(splitTags[i]);
+            tag.setTag(splitTags[i]);
 
-            this.mItemTags.addView(tag);
+            parent.getChildAt(1).setVisibility(View.GONE);
+
+            this.mItemTags.addView(parent);
 
         }
-
-    }
-
-    void setViewProperties (Context context, TextView textView) {
-
-        GridLayout.LayoutParams params = new GridLayout.LayoutParams();
-        params.setMargins(0, 0, 10, 0);
-
-        textView.setLayoutParams(params);
-        textView.setPadding(
-                (int) this.mResources.getDimension(R.dimen.item_tagPaddingWidth),
-                (int) this.mResources.getDimension(R.dimen.item_tagPaddingHeight),
-                (int) this.mResources.getDimension(R.dimen.item_tagPaddingWidth),
-                (int) this.mResources.getDimension(R.dimen.item_tagPaddingHeight)
-        );
-        textView.setTextColor(ContextCompat.getColor(context, R.color.colorWhite));
-        textView.setBackground(ContextCompat.getDrawable(context, R.drawable.tag_bg));
 
     }
 

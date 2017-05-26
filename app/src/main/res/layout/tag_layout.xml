@@ -1,12 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:layout_margin="@dimen/item_tagMargin"
     android:paddingLeft="@dimen/item_tagPaddingWidth"
     android:paddingRight="@dimen/item_tagPaddingWidth"
     android:paddingTop="@dimen/item_tagPaddingHeight"
     android:paddingBottom="@dimen/item_tagPaddingHeight"
-    android:textColor="@color/colorWhite"
     android:background="@drawable/tag_bg">
 
-</TextView>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/item_tagTextMarginTop"
+        android:text="tag"
+        android:textSize="@dimen/item_tagTextFontSize"
+        android:textColor="@color/colorWhite" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/item_tagClearMarginTop"
+        android:layout_marginLeft="@dimen/item_tagClearMarginLeft"
+        android:background="@drawable/ic_clear"/>
+
+</GridLayout>

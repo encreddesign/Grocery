@@ -13,6 +13,7 @@ import com.encreddesign.grocery.callbacks.FragmentCallback;
 import com.encreddesign.grocery.db.items.ItemsMapper;
 import com.encreddesign.grocery.fragments.CategoriesFragment;
 import com.encreddesign.grocery.fragments.CategoryFragment;
+import com.encreddesign.grocery.fragments.CategoryItemsFragment;
 import com.encreddesign.grocery.fragments.CompletedItemsFragment;
 import com.encreddesign.grocery.fragments.EditItemFragment;
 import com.encreddesign.grocery.fragments.ItemsFragment;
@@ -101,7 +102,8 @@ public class BaseActivity extends GroceryActivity {
                 .addFragment(new CompletedItemsFragment())
                 .addFragment(new EditItemFragment())
                 .addFragment(new ViewItemFragment())
-                .replaceFragment("ItemsFragment", true, true);
+                .addFragment(new CategoryItemsFragment())
+                .replaceFragment("ItemsFragment", true, false);
 
         this.buildFloatingAction();
 
@@ -123,7 +125,7 @@ public class BaseActivity extends GroceryActivity {
         this.mFloatingItemButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mFragmentManager.replaceFragment("EditItemFragment", true, true);
+                mFragmentManager.replaceFragment("EditItemFragment", true, true, true);
             }
         });
         this.mFloatingCatButton.setOnClickListener(new View.OnClickListener() {

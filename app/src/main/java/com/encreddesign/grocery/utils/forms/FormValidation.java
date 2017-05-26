@@ -108,7 +108,7 @@ public class FormValidation {
 
         for(int i = 0; i < childCount; i++) {
 
-            String tag = group.getChildAt(i).getTag().toString();
+            String tag = ((ViewGroup) group.getChildAt(i)).getChildAt(0).getTag().toString();
 
             if(tag.length() > 0) {
                 tags.add(tag);

@@ -1,5 +1,6 @@
 package com.encreddesign.grocery;
 
+import android.app.Dialog;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;

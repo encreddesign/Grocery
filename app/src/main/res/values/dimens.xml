@@ -39,7 +39,21 @@
     <!-- Item Edit -->
     <dimen name="item_categorySpinnerPadding">15dp</dimen>
     <dimen name="item_tagsMarginTop">15dp</dimen>
-    <dimen name="item_tagPaddingHeight">7dp</dimen>
+    <dimen name="item_tagMargin">10dp</dimen>
+    <dimen name="item_tagPaddingHeight">8dp</dimen>
     <dimen name="item_tagPaddingWidth">20dp</dimen>
-    <dimen name="item_tagRadius">5dp</dimen>
+    <dimen name="item_tagRadius">30dp</dimen>
+    <dimen name="item_tagTextMarginTop">-2dp</dimen>
+    <dimen name="item_tagTextFontSize">18sp</dimen>
+    <dimen name="item_tagClearMarginTop">-4dp</dimen>
+    <dimen name="item_tagClearMarginLeft">10dp</dimen>
+
+    <!-- Dialog Fragment -->
+    <dimen name="dialog_padding">10dp</dimen>
+    <dimen name="dialog_iconRadius">50dp</dimen>
+    <dimen name="dialog_iconMargin">15dp</dimen>
+    <dimen name="dialog_iconStrokeWidth">2dp</dimen>
+    <dimen name="dialog_iconPadding">70dp</dimen>
+    <dimen name="dialog_messagePadding">5dp</dimen>
+    <dimen name="dialog_messageSize">16sp</dimen>
 </resources>

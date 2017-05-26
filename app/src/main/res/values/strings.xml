@@ -13,6 +13,10 @@
     <string name="fragment_title_category">Edit Category</string>
     <string name="fragment_title_categories">Categories</string>
 
+    <!-- Dialog Fragment -->
+    <string name="dialog_fragment_cancel">Cancel</string>
+    <string name="dialog_fragment_confirm">Confirm</string>
+
     <!-- Defaults -->
     <string name="item_name_default">Grocery Item</string>
     <string name="item_category_default">Category</string>
@@ -23,6 +27,7 @@
 
     <!-- Menus -->
     <string name="menu_action_save_default">Save</string>
+    <string name="menu_action_check_default">Check</string>
 
     <!-- Spinners -->
     <string name="spinner_category_default">Choose Category</string>

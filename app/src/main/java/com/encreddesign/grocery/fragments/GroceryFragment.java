@@ -14,7 +14,7 @@ import es.dmoral.toasty.Toasty;
  * Created by Joshua on 06/05/2017.
  */
 
-public class GroceryFragment extends Fragment {
+public abstract class GroceryFragment extends Fragment {
 
     static class ToastTypes {
 

@@ -59,6 +59,7 @@ public class CategoriesCollecting implements Runnable {
                 public void run() {
 
                     fragment.mEmptyList.setVisibility(View.GONE);
+                    fragment.mRecyclerView.getRecycledViewPool().clear();
                     fragment.mRecyclerAdapter.notifyDataSetChanged();
 
                 }

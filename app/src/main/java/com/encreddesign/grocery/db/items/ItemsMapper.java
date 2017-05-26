@@ -178,6 +178,34 @@ public class ItemsMapper {
     }
 
     /*
+    * @method findItemsByCat
+    * @params Integer catId
+    * */
+    @Nullable
+    public List<GroceryEntity> findItemsByCat (int catId) {
+
+        Cursor cursor = this.mItemsTable.findItemsByCat(catId);
+
+        if(!cursor.moveToFirst()) {
+
+            cursor.close();
+            return null;
+
+        }
+
+        List<GroceryEntity> list = new ArrayList<>();
+
+        do {
+            list.add(this.getFromCursor(cursor));
+        } while (cursor.moveToNext());
+
+        cursor.close();
+
+        return list;
+
+    }
+
+    /*
     * @method findItemsByOut
     * */
     @Nullable

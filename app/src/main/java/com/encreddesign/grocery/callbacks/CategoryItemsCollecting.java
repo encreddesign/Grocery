@@ -1,33 +1,30 @@
 package com.encreddesign.grocery.callbacks;
 
-import android.util.Log;
 import android.view.View;
 
-import com.encreddesign.grocery.BaseActivity;
 import com.encreddesign.grocery.db.category.CategoryEntity;
 import com.encreddesign.grocery.db.category.CategoryMapper;
 import com.encreddesign.grocery.db.items.GroceryEntity;
 import com.encreddesign.grocery.db.items.ItemsMapper;
-import com.encreddesign.grocery.fragments.CompletedItemsFragment;
+import com.encreddesign.grocery.fragments.CategoryItemsFragment;
 import com.encreddesign.grocery.fragments.GroceryFragment;
-import com.encreddesign.grocery.fragments.OutstandingItemsFragment;
 import com.encreddesign.grocery.tasks.TaskHandler;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Joshua on 24/05/2017.
+ * Created by Joshua on 26/05/2017.
  */
 
-public class OutstandingItemsCollecting implements Runnable {
+public class CategoryItemsCollecting implements Runnable {
 
-    private final ItemsMapper mItemsMapper;
+    private final CategoryMapper mItemsMapper;
 
     private final TaskHandler mHandler;
     private final GroceryFragment mFragment;
 
-    public OutstandingItemsCollecting (GroceryFragment fragment, TaskHandler handler, ItemsMapper mapper) {
+    public CategoryItemsCollecting (GroceryFragment fragment, TaskHandler handler, CategoryMapper mapper) {
 
         this.mHandler = handler;
         this.mItemsMapper = mapper;
@@ -39,10 +36,13 @@ public class OutstandingItemsCollecting implements Runnable {
     @Override
     public void run() {
 
-        final OutstandingItemsFragment fragment = ((OutstandingItemsFragment) mFragment);
-
+        final CategoryItemsFragment fragment = ((CategoryItemsFragment) mFragment);
         final List<GroceryEntity> items = new ArrayList<>();
-        final List<GroceryEntity> itemsMapper = this.mItemsMapper.findItemsByOut();
+
+        List<GroceryEntity> itemsMapper = null;
+        if(fragment.getArguments() != null && fragment.getArguments().getInt("dbId") > 0) {
+            itemsMapper = this.mItemsMapper.findItemsByCatId(fragment.getArguments().getInt("dbId"));
+        }
 
         if(itemsMapper != null) {
 
