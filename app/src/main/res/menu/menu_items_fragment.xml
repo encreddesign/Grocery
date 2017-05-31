@@ -8,4 +8,10 @@
         android:icon="@drawable/ic_adjust"
         app:showAsAction="always"/>
 
+    <item
+        android:id="@+id/action_reset_items"
+        android:title="@string/menu_action_reset_default"
+        android:icon="@drawable/ic_block"
+        app:showAsAction="always"/>
+
 </menu>

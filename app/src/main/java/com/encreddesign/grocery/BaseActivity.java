@@ -28,10 +28,13 @@ import java.util.List;
 public class BaseActivity extends GroceryActivity {
 
     public static final String LOG_TAG = "EncredTag";
+    public static final String DB_KEY = "dbId";
 
     public ItemsMapper mItemsMapper;
     public FragmentManager mFragmentManager;
     public TaskHandler mTaskHandler;
+
+    public GroceryPreferences mGroceryPrefs;
 
     public FloatingActionButton mFloatingButton;
     public FloatingActionButton mFloatingItemButton;
@@ -89,6 +92,8 @@ public class BaseActivity extends GroceryActivity {
 
     void setup (Activity activity) {
 
+        this.mGroceryPrefs = new GroceryPreferences(activity);
+
         this.mFragmentCallback = new FragmentCallback(this);
 
         this.mBackstackManager = new BackstackManager((BaseActivity) activity, this.mFragmentCallback);
@@ -125,12 +130,14 @@ public class BaseActivity extends GroceryActivity {
         this.mFloatingItemButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mFragmentManager.replaceFragment("EditItemFragment", true, true, true);
+                mGroceryPrefs.remove(DB_KEY);
+                mFragmentManager.replaceFragment("EditItemFragment", true, true);
             }
         });
         this.mFloatingCatButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                mGroceryPrefs.remove(DB_KEY);
                 mFragmentManager.replaceFragment("CategoryFragment", true, true);
             }
         });
@@ -153,6 +160,9 @@ public class BaseActivity extends GroceryActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+
+        this.mGroceryPrefs.remove(DB_KEY);
         this.mTaskHandler.destroyThread();
+
     }
 }

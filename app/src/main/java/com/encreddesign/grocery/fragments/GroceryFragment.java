@@ -6,6 +6,7 @@ import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.encreddesign.grocery.BaseActivity;
 import com.encreddesign.grocery.R;
 
 import es.dmoral.toasty.Toasty;
@@ -69,6 +70,18 @@ public abstract class GroceryFragment extends Fragment {
         TextView toolbar = (TextView) getActivity().findViewById(R.id.toolbarTitle);
         toolbar.setText(title);
 
+    }
+
+    void putDbId (int dbId) {
+        ((BaseActivity) getActivity()).mGroceryPrefs.putInt(BaseActivity.DB_KEY, dbId);
+    }
+
+    void removeDbId () {
+        ((BaseActivity) getActivity()).mGroceryPrefs.remove(BaseActivity.DB_KEY);
+    }
+
+    int getDbId () {
+        return ((BaseActivity) getActivity()).mGroceryPrefs.getInt(BaseActivity.DB_KEY);
     }
 
 }

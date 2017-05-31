@@ -44,11 +44,6 @@ public class CategoryItemsFragment extends GroceryFragment {
 
         this.mEmptyList = (RelativeLayout) view.findViewById(R.id.emptyListLayout);
 
-        this.populateListAdapter();
-        if(this.mItems.size() == 0) {
-            this.mEmptyList.setVisibility(View.VISIBLE);
-        }
-
         this.mRecyclerView = (RecyclerView) view.findViewById(R.id.items_list);
         this.mRecyclerView.setHasFixedSize(true);
         this.mRecyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -58,6 +53,11 @@ public class CategoryItemsFragment extends GroceryFragment {
 
         this.mRecyclerAdapter = new ItemsAdapter(this.mItems);
         this.mRecyclerView.setAdapter(this.mRecyclerAdapter);
+
+        this.populateListAdapter();
+        if(this.mItems.size() == 0) {
+            this.mEmptyList.setVisibility(View.VISIBLE);
+        }
 
         setToolbarTitle(R.string.fragment_title_items);
 

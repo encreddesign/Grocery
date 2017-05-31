@@ -28,6 +28,7 @@
     <!-- Menus -->
     <string name="menu_action_save_default">Save</string>
     <string name="menu_action_check_default">Check</string>
+    <string name="menu_action_reset_default">Reset</string>
 
     <!-- Spinners -->
     <string name="spinner_category_default">Choose Category</string>

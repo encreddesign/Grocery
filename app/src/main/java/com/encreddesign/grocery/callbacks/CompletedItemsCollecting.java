@@ -41,6 +41,8 @@ public class CompletedItemsCollecting implements Runnable {
         final List<GroceryEntity> items = new ArrayList<>();
         final List<GroceryEntity> itemsMapper = this.mItemsMapper.findItemsByComp();
 
+        this.clearList(fragment);
+
         if(itemsMapper != null) {
 
             for (GroceryEntity entity : itemsMapper) {
@@ -52,21 +54,41 @@ public class CompletedItemsCollecting implements Runnable {
                 items.add(entity);
             }
 
-            fragment.mItems.clear();
-            fragment.mItems.addAll(items);
-
-            this.mHandler.ui(new Runnable() {
-                @Override
-                public void run() {
-
-                    fragment.mEmptyList.setVisibility(View.GONE);
-                    fragment.mRecyclerView.getRecycledViewPool().clear();
-                    fragment.mRecyclerAdapter.notifyDataSetChanged();
-
-                }
-            });
+            this.updateList(fragment, items);
 
         }
 
     }
+
+    void clearList (final CompletedItemsFragment fragment) {
+
+        this.mHandler.ui(new Runnable() {
+            @Override
+            public void run() {
+
+                fragment.mItems.clear();
+                fragment.mEmptyList.setVisibility(View.VISIBLE);
+                fragment.mRecyclerView.getRecycledViewPool().clear();
+                fragment.mRecyclerAdapter.notifyDataSetChanged();
+
+            }
+        });
+
+    }
+
+    void updateList (final CompletedItemsFragment fragment, final List<GroceryEntity> items) {
+
+        this.mHandler.ui(new Runnable() {
+            @Override
+            public void run() {
+
+                fragment.mItems.addAll(items);
+                fragment.mEmptyList.setVisibility(View.GONE);
+                fragment.mRecyclerAdapter.notifyDataSetChanged();
+
+            }
+        });
+
+    }
+
 }

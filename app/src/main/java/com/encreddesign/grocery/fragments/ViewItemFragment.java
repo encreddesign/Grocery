@@ -17,6 +17,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.encreddesign.grocery.BaseActivity;
+import com.encreddesign.grocery.GroceryPreferences;
 import com.encreddesign.grocery.R;
 import com.encreddesign.grocery.db.category.CategoryEntity;
 import com.encreddesign.grocery.db.category.CategoryMapper;
@@ -61,8 +62,8 @@ public class ViewItemFragment extends GroceryFragment {
 
         this.mItemTags = (ViewGroup) view.findViewById(R.id.item_view_tags_container);
 
-        if(this.getArguments() != null && this.getArguments().getInt("dbId") != -1) {
-            this.mDbId = this.getArguments().getInt("dbId");
+        if(getDbId() > 0) {
+            this.mDbId = getDbId();
             this.populateViews(((BaseActivity) getActivity()).getBaseContext(), this.mDbId);
         }
 
@@ -149,10 +150,8 @@ public class ViewItemFragment extends GroceryFragment {
 
     void goEditItemFragment () {
 
-        final Bundle bundle = new Bundle();
-        bundle.putInt("dbId", this.mDbId);
-
-        ((BaseActivity) this.mParentView.getContext()).mFragmentManager.replaceFragment("EditItemFragment", true, true, bundle);
+        putDbId(this.mDbId);
+        ((BaseActivity) this.mParentView.getContext()).mFragmentManager.replaceFragment("EditItemFragment", true, true);
 
     }
 

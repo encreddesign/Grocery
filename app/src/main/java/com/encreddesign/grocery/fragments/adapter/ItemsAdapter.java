@@ -1,6 +1,5 @@
 package com.encreddesign.grocery.fragments.adapter;
 
-import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -92,10 +91,8 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> 
 
     void openViewFragment (int dbId) {
 
-        final Bundle bundle = new Bundle();
-        bundle.putInt("dbId", dbId);
-
-        ((BaseActivity) this.mParent.getContext()).mFragmentManager.replaceFragment("ViewItemFragment", true, true, bundle);
+        ((BaseActivity) this.mParent.getContext()).mGroceryPrefs.putInt(BaseActivity.DB_KEY, dbId);
+        ((BaseActivity) this.mParent.getContext()).mFragmentManager.replaceFragment("ViewItemFragment", true, true);
     }
 
     void updateItemStatus (View view, int dbId) {

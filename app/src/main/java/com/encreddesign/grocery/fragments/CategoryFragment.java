@@ -1,7 +1,9 @@
 package com.encreddesign.grocery.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -29,6 +31,9 @@ public class CategoryFragment extends GroceryFragment {
 
     private EditText mEditCatName;
     private TaskHandler mTaskHandler;
+
+    private int mDbId = -1;
+    private boolean mUpdateItem;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -84,13 +89,64 @@ public class CategoryFragment extends GroceryFragment {
 
             validation.validateText(this.mEditCatName);
 
+            if(this.mDbId != -1) {
+                entity.setCategoryId(this.mDbId);
+            }
+
             this.mTaskHandler.bg(new CategorySubmit(this, this.mTaskHandler,
-                    new CategoryMapper(this.getActivity().getBaseContext()), entity.getCategoryName()));
+                    new CategoryMapper(this.getActivity().getBaseContext()), entity.getCategoryName(), this.mUpdateItem));
 
         } catch (Exception ex) {
+            Log.e(BaseActivity.LOG_TAG, "Error", ex);
             Toasty.error(getActivity().getBaseContext(), ex.getMessage(), Toast.LENGTH_SHORT).show();
         }
 
     }
 
+    void prePopulateFields (Context context, int dbId) {
+
+        CategoryMapper mapper = new CategoryMapper(context);
+
+        try {
+
+            CategoryEntity entity = mapper.findCategoryById(dbId);
+
+            if(entity == null) {
+                throw new Exception("Unable to load item");
+            }
+
+            this.mEditCatName.setText(entity.getCategoryName());
+
+        } catch (Exception ex) {
+            Log.e(BaseActivity.LOG_TAG, "Error", ex);
+            this.showToast(context, ex.getMessage(), ToastTypes.ERROR);
+        }
+
+    }
+
+    void resetFields () {
+
+        int dbId = getDbId();
+        if(dbId > 0) {
+
+            this.mUpdateItem = true;
+            this.mDbId = dbId;
+
+            this.prePopulateFields(((BaseActivity) getActivity()).getBaseContext(), this.mDbId);
+
+        } else {
+
+            this.mEditCatName.setText("");
+
+        }
+
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        this.resetFields();
+
+    }
 }

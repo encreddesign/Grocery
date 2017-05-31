@@ -1,18 +1,26 @@
 package com.encreddesign.grocery.fragments.adapter;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.encreddesign.grocery.BaseActivity;
 import com.encreddesign.grocery.R;
 import com.encreddesign.grocery.db.category.CategoryEntity;
+import com.encreddesign.grocery.db.category.CategoryMapper;
+import com.encreddesign.grocery.db.items.ItemsMapper;
 
 import java.util.List;
+
+import es.dmoral.toasty.Toasty;
 
 /**
  * Created by Joshua on 24/05/2017.
@@ -38,7 +46,26 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Vi
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openViewFragment(Integer.valueOf(holder.mCatName.getTag().toString()));
+
+                int dbId = 0;
+                if(Integer.valueOf(holder.mCatItems.getTag().toString()) > 0) {
+                    dbId = Integer.valueOf(holder.mCatName.getTag().toString());
+                }
+
+                openViewFragment(dbId);
+
+            }
+        });
+
+        view.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+
+                int dbId = Integer.valueOf(holder.mCatName.getTag().toString());
+
+                removeCategory(view, dbId);
+                return true;
+
             }
         });
 
@@ -55,15 +82,35 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Vi
         holder.mCatName.setTag(item.getCategoryId());
 
         holder.mCatItems.setText(item.getExtraContent());
+        holder.mCatItems.setTag(item.getExtraContent());
 
     }
 
     void openViewFragment (int dbId) {
 
-        final Bundle bundle = new Bundle();
-        bundle.putInt("dbId", dbId);
+        ((BaseActivity) this.mParent.getContext()).mGroceryPrefs.putInt(BaseActivity.DB_KEY, dbId);
+        ((BaseActivity) this.mParent.getContext()).mFragmentManager.replaceFragment("CategoryItemsFragment", true, true);
+    }
 
-        ((BaseActivity) this.mParent.getContext()).mFragmentManager.replaceFragment("CategoryItemsFragment", true, true, bundle);
+    void removeCategory (final View view, final int dbId) {
+
+        final AlertDialog.Builder dialog = new AlertDialog.Builder(((BaseActivity) this.mParent.getContext()));
+        final CategoryMapper mapper = new CategoryMapper(this.mParent.getContext());
+
+        try {
+
+            mapper.deleteCategory(dbId);
+
+            Toasty.success(mParent.getContext(), "Deleted Category", Toast.LENGTH_SHORT).show();
+
+            mItems.remove(mParent.indexOfChild(view));
+            notifyDataSetChanged();
+
+        } catch (Exception ex) {
+            Log.e(BaseActivity.LOG_TAG, "Error", ex);
+            Toasty.error(this.mParent.getContext(), ex.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     /*

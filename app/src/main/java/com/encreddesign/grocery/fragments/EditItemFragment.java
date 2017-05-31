@@ -209,10 +209,11 @@ public class EditItemFragment extends GroceryFragment {
 
     void resetFields () {
 
-        if(this.getArguments() != null && this.getArguments().getInt("dbId") > 0) {
+        int dbId = getDbId();
+        if(dbId > 0) {
 
             this.mUpdateItem = true;
-            this.mDbId = this.getArguments().getInt("dbId");
+            this.mDbId = dbId;
 
             this.prePopulateFields(this.mContext, this.mDbId);
 

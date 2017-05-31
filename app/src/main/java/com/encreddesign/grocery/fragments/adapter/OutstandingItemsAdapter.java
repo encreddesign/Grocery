@@ -92,10 +92,8 @@ public class OutstandingItemsAdapter extends RecyclerView.Adapter<OutstandingIte
 
     void openViewFragment (int dbId) {
 
-        final Bundle bundle = new Bundle();
-        bundle.putInt("dbId", dbId);
-
-        ((BaseActivity) this.mParent.getContext()).mFragmentManager.replaceFragment("ViewItemFragment", true, true, bundle);
+        ((BaseActivity) this.mParent.getContext()).mGroceryPrefs.putInt(BaseActivity.DB_KEY, dbId);
+        ((BaseActivity) this.mParent.getContext()).mFragmentManager.replaceFragment("ViewItemFragment", true, true);
     }
 
     void completeItem (View view, int dbId) {

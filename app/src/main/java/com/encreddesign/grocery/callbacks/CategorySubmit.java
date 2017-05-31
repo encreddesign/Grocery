@@ -20,15 +20,17 @@ public class CategorySubmit implements Runnable {
     private final GroceryFragment mFragment;
     private final CategoryMapper mCatMapper;
 
+    private final boolean mDoUpdate;
     private final String mCatName;
 
-    public CategorySubmit (GroceryFragment mFragment, TaskHandler handler, CategoryMapper mapper, String name) {
+    public CategorySubmit (GroceryFragment mFragment, TaskHandler handler, CategoryMapper mapper, String name, boolean update) {
 
         this.mHandler = handler;
         this.mFragment = mFragment;
         this.mCatMapper = mapper;
 
         this.mCatName = name;
+        this.mDoUpdate = update;
 
     }
 

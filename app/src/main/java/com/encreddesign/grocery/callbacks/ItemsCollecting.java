@@ -2,6 +2,7 @@ package com.encreddesign.grocery.callbacks;
 
 import android.view.View;
 
+import com.encreddesign.grocery.BaseActivity;
 import com.encreddesign.grocery.db.category.CategoryEntity;
 import com.encreddesign.grocery.db.category.CategoryMapper;
 import com.encreddesign.grocery.db.items.GroceryEntity;
@@ -39,12 +40,16 @@ public class ItemsCollecting implements Runnable {
         final ItemsFragment fragment = ((ItemsFragment) mFragment);
         final List<GroceryEntity> items = new ArrayList<>();
 
+        int dbId = ((BaseActivity) fragment.getActivity()).mGroceryPrefs.getInt(BaseActivity.DB_KEY);
         List<GroceryEntity> itemsMapper = null;
-        if(fragment.getArguments() != null && fragment.getArguments().getInt("dbId") > 0) {
-            itemsMapper = this.mItemsMapper.findItemsByCat(fragment.getArguments().getInt("dbId"));
+
+        if(dbId > 0) {
+            itemsMapper = this.mItemsMapper.findItemsByCat(dbId);
         } else {
             itemsMapper = this.mItemsMapper.getAllItems();
         }
+
+        this.clearList(fragment);
 
         if(itemsMapper != null) {
 
@@ -57,21 +62,41 @@ public class ItemsCollecting implements Runnable {
                 items.add(entity);
             }
 
-            fragment.mItems.clear();
-            fragment.mItems.addAll(items);
-
-            this.mHandler.ui(new Runnable() {
-                @Override
-                public void run() {
-
-                    fragment.mEmptyList.setVisibility(View.GONE);
-                    fragment.mRecyclerView.getRecycledViewPool().clear();
-                    fragment.mRecyclerAdapter.notifyDataSetChanged();
-
-                }
-            });
+            this.updateList(fragment, items);
 
         }
 
     }
+
+    void clearList (final ItemsFragment fragment) {
+
+        this.mHandler.ui(new Runnable() {
+            @Override
+            public void run() {
+
+                fragment.mItems.clear();
+                fragment.mEmptyList.setVisibility(View.VISIBLE);
+                fragment.mRecyclerView.getRecycledViewPool().clear();
+                fragment.mRecyclerAdapter.notifyDataSetChanged();
+
+            }
+        });
+
+    }
+
+    void updateList (final ItemsFragment fragment, final List<GroceryEntity> items) {
+
+        this.mHandler.ui(new Runnable() {
+            @Override
+            public void run() {
+
+                fragment.mItems.addAll(items);
+                fragment.mEmptyList.setVisibility(View.GONE);
+                fragment.mRecyclerAdapter.notifyDataSetChanged();
+
+            }
+        });
+
+    }
+
 }

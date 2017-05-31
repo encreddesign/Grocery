@@ -51,12 +51,9 @@ public class ItemsFragment extends GroceryFragment {
 
         View view = inflater.inflate(R.layout.items_fragment, container, false);
 
-        this.mEmptyList = (RelativeLayout) view.findViewById(R.id.emptyListLayout);
+        removeDbId();
 
-        this.populateListAdapter();
-        if(this.mItems.size() == 0) {
-            this.mEmptyList.setVisibility(View.VISIBLE);
-        }
+        this.mEmptyList = (RelativeLayout) view.findViewById(R.id.emptyListLayout);
 
         this.mRecyclerView = (RecyclerView) view.findViewById(R.id.items_list);
         this.mRecyclerView.setHasFixedSize(true);
@@ -67,6 +64,11 @@ public class ItemsFragment extends GroceryFragment {
 
         this.mRecyclerAdapter = new ItemsAdapter(this.mItems);
         this.mRecyclerView.setAdapter(this.mRecyclerAdapter);
+
+        this.populateListAdapter();
+        if(this.mItems.size() == 0) {
+            this.mEmptyList.setVisibility(View.VISIBLE);
+        }
 
         setToolbarTitle(R.string.fragment_title_items);
 
@@ -88,6 +90,9 @@ public class ItemsFragment extends GroceryFragment {
             case R.id.action_check_items:
                 this.checkOutstandingItems();
                 break;
+            case R.id.action_reset_items:
+                this.resetDatabase();
+                break;
             default:
                 break;
 
@@ -104,11 +109,23 @@ public class ItemsFragment extends GroceryFragment {
 
     }
 
+    void resetDatabase () {
+
+        GroceryDialogFragment dialog = GroceryDialogFragment.newInstance(
+                "Reset Grocery List",
+                "Are you sure you want to Reset your list? Doing so will clear your list and categories",
+                R.drawable.ic_shopping_cart,
+                "",
+                true
+        );
+        dialog.show(getActivity().getFragmentManager(), "reset_dialog");
+
+    }
+
     void populateListAdapter () {
 
         ((BaseActivity) getActivity()).mTaskHandler.bg(new ItemsCollecting(this, ((BaseActivity) getActivity()).mTaskHandler,
                 new ItemsMapper(this.getActivity().getBaseContext())));
 
     }
-
 }

@@ -1,14 +1,11 @@
 package com.encreddesign.grocery.callbacks;
 
-import android.util.Log;
 import android.view.View;
 
-import com.encreddesign.grocery.BaseActivity;
 import com.encreddesign.grocery.db.category.CategoryEntity;
 import com.encreddesign.grocery.db.category.CategoryMapper;
 import com.encreddesign.grocery.db.items.GroceryEntity;
 import com.encreddesign.grocery.db.items.ItemsMapper;
-import com.encreddesign.grocery.fragments.CompletedItemsFragment;
 import com.encreddesign.grocery.fragments.GroceryFragment;
 import com.encreddesign.grocery.fragments.OutstandingItemsFragment;
 import com.encreddesign.grocery.tasks.TaskHandler;
@@ -44,6 +41,8 @@ public class OutstandingItemsCollecting implements Runnable {
         final List<GroceryEntity> items = new ArrayList<>();
         final List<GroceryEntity> itemsMapper = this.mItemsMapper.findItemsByOut();
 
+        this.clearList(fragment);
+
         if(itemsMapper != null) {
 
             for (GroceryEntity entity : itemsMapper) {
@@ -55,21 +54,41 @@ public class OutstandingItemsCollecting implements Runnable {
                 items.add(entity);
             }
 
-            fragment.mItems.clear();
-            fragment.mItems.addAll(items);
-
-            this.mHandler.ui(new Runnable() {
-                @Override
-                public void run() {
-
-                    fragment.mEmptyList.setVisibility(View.GONE);
-                    fragment.mRecyclerView.getRecycledViewPool().clear();
-                    fragment.mRecyclerAdapter.notifyDataSetChanged();
-
-                }
-            });
+            this.updateList(fragment, items);
 
         }
 
     }
+
+    void clearList (final OutstandingItemsFragment fragment) {
+
+        this.mHandler.ui(new Runnable() {
+            @Override
+            public void run() {
+
+                fragment.mItems.clear();
+                fragment.mEmptyList.setVisibility(View.VISIBLE);
+                fragment.mRecyclerView.getRecycledViewPool().clear();
+                fragment.mRecyclerAdapter.notifyDataSetChanged();
+
+            }
+        });
+
+    }
+
+    void updateList (final OutstandingItemsFragment fragment, final List<GroceryEntity> items) {
+
+        this.mHandler.ui(new Runnable() {
+            @Override
+            public void run() {
+
+                fragment.mItems.addAll(items);
+                fragment.mEmptyList.setVisibility(View.GONE);
+                fragment.mRecyclerAdapter.notifyDataSetChanged();
+
+            }
+        });
+
+    }
+
 }

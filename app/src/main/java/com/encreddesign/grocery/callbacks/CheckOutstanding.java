@@ -43,26 +43,33 @@ public class CheckOutstanding implements Runnable {
                 @Override
                 public void run() {
 
-                    int icon = 0;
-                    String fragment = "";
-                    String message = "";
+                    GroceryDialogFragment dialog = GroceryDialogFragment.newInstance(
+                            "ItemsOutstanding",
+                            "You still have " + String.valueOf(items.size()) + " outstanding items",
+                            R.drawable.ic_shopping_cart,
+                            "OutstandingItemsFragment"
+                    );
 
-                    if(items.size() > 0) {
+                    vibrateDevice(200);
+                    dialog.show(mActivity.getFragmentManager(), "cart_dialog");
 
-                        icon = R.drawable.ic_shopping_cart;
-                        fragment = "OutstandingItemsFragment";
-                        message = "You still have " + String.valueOf(items.size()) + " outstanding items";
+                }
+            });
 
-                    } else {
+        } else {
 
-                        icon = R.drawable.ic_done;
-                        message = "You have completed all your items";
+            this.mTaskHandler.ui(new Runnable() {
+                @Override
+                public void run() {
 
-                    }
+                    GroceryDialogFragment dialog = GroceryDialogFragment.newInstance(
+                            "ItemsOutstanding",
+                            "You have completed all your items",
+                            R.drawable.ic_done,
+                            ""
+                    );
 
-                    GroceryDialogFragment dialog = GroceryDialogFragment.newInstance("ItemsOutstanding", message, icon, fragment);
-
-                    vibrateDevice(400);
+                    vibrateDevice(200);
                     dialog.show(mActivity.getFragmentManager(), "cart_dialog");
 
                 }

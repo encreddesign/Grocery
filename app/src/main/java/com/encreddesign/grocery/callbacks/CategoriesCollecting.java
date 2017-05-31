@@ -41,6 +41,8 @@ public class CategoriesCollecting implements Runnable {
         final List<CategoryEntity> items = new ArrayList<>();
         final List<CategoryEntity> catsMapper = this.mCatsMapper.getAllCategorys();
 
+        this.clearList(fragment);
+
         if(catsMapper != null) {
 
             for (CategoryEntity entity : catsMapper) {
@@ -51,21 +53,41 @@ public class CategoriesCollecting implements Runnable {
                 items.add(entity);
             }
 
-            fragment.mItems.clear();
-            fragment.mItems.addAll(items);
-
-            this.mHandler.ui(new Runnable() {
-                @Override
-                public void run() {
-
-                    fragment.mEmptyList.setVisibility(View.GONE);
-                    fragment.mRecyclerView.getRecycledViewPool().clear();
-                    fragment.mRecyclerAdapter.notifyDataSetChanged();
-
-                }
-            });
+            this.updateList(fragment, items);
 
         }
 
     }
+
+    void clearList (final CategoriesFragment fragment) {
+
+        this.mHandler.ui(new Runnable() {
+            @Override
+            public void run() {
+
+                fragment.mItems.clear();
+                fragment.mEmptyList.setVisibility(View.VISIBLE);
+                fragment.mRecyclerView.getRecycledViewPool().clear();
+                fragment.mRecyclerAdapter.notifyDataSetChanged();
+
+            }
+        });
+
+    }
+
+    void updateList (final CategoriesFragment fragment, final List<CategoryEntity> items) {
+
+        this.mHandler.ui(new Runnable() {
+            @Override
+            public void run() {
+
+                fragment.mItems.addAll(items);
+                fragment.mEmptyList.setVisibility(View.GONE);
+                fragment.mRecyclerAdapter.notifyDataSetChanged();
+
+            }
+        });
+
+    }
+
 }

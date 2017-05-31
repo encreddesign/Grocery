@@ -12,6 +12,9 @@ import android.widget.TextView;
 
 import com.encreddesign.grocery.BaseActivity;
 import com.encreddesign.grocery.R;
+import com.encreddesign.grocery.callbacks.ResetDatabase;
+import com.encreddesign.grocery.db.category.CategoryMapper;
+import com.encreddesign.grocery.db.items.ItemsMapper;
 
 /**
  * Created by Joshua on 26/05/2017.
@@ -62,7 +65,13 @@ public class GroceryDialogFragment extends DialogFragment {
         this.mConfirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                actionConfirm(fragment);
+
+                if(getArguments().getBoolean("resetDb")) {
+                    resetDatabase();
+                } else {
+                    actionConfirm(fragment);
+                }
+
             }
         });
 
@@ -83,7 +92,15 @@ public class GroceryDialogFragment extends DialogFragment {
 
     }
 
-    public static GroceryDialogFragment newInstance (String title, String message, int resIcon, String fragmentLabel) {
+    void resetDatabase () {
+
+        getDialog().dismiss();
+        ((BaseActivity) getActivity()).mTaskHandler.bg(new ResetDatabase(((BaseActivity) getActivity()),
+                ((BaseActivity) getActivity()).mTaskHandler, new ItemsMapper(getActivity().getBaseContext()), new CategoryMapper(getActivity().getBaseContext())));
+
+    }
+
+    private static GroceryDialogFragment setup (String title, String message, int resIcon, String fragmentLabel, boolean resetDb) {
 
         final GroceryDialogFragment dialog = new GroceryDialogFragment();
 
@@ -92,11 +109,20 @@ public class GroceryDialogFragment extends DialogFragment {
         bundle.putString("message", message);
         bundle.putInt("icon", resIcon);
         bundle.putString("fragment", fragmentLabel);
+        bundle.putBoolean("resetDb", resetDb);
 
         dialog.setArguments(bundle);
 
         return dialog;
 
+    }
+
+    public static GroceryDialogFragment newInstance (String title, String message, int resIcon, String fragmentLabel) {
+        return setup(title, message, resIcon, fragmentLabel, false);
+    }
+
+    public static GroceryDialogFragment newInstance (String title, String message, int resIcon, String fragmentLabel, boolean resetDb) {
+        return setup(title, message, resIcon, fragmentLabel, resetDb);
     }
 
 }

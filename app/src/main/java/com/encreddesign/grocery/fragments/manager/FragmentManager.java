@@ -108,6 +108,10 @@ public class FragmentManager {
 
         final Fragment fragment = this.getFragment(label);
 
+        if(fragment.getArguments() != null && clearArgs) {
+            fragment.getArguments().clear();
+        }
+
         if(bundle != null) {
 
             if(fragment.getArguments() != null) {
@@ -119,10 +123,6 @@ public class FragmentManager {
                 fragment.setArguments(bundle);
             }
 
-        }
-
-        if(clearArgs && fragment.getArguments() != null) {
-            fragment.getArguments().clear();
         }
 
         final FragmentTransaction transaction = this.mFragmentManager.beginTransaction();
