@@ -79,12 +79,18 @@
             android:layout_marginTop="@dimen/item_categoryMarginBottom"
             android:tag="@string/field_name_category"/>
 
-        <GridLayout
-            android:id="@+id/item_tags_container"
+        <HorizontalScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/item_tagsMarginTop"
-            android:columnCount="3"/>
+            android:layout_height="wrap_content">
+
+            <GridLayout
+                android:id="@+id/item_tags_container"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/item_tagsMarginTop"
+                android:columnCount="3"/>
+
+        </HorizontalScrollView>
 
     </LinearLayout>
 

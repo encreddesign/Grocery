@@ -116,6 +116,11 @@ public class CategoryTable {
             query = COLUMN_CAT_ID + " =?";
             values = new String[]{ String.valueOf(catId) };
 
+            ContentValues cv = new ContentValues();
+            cv.put(ItemsTable.COLUMN_ITEM_CATEGORY, -1);
+
+            this.mSqlDatabase.update(ItemsTable.TABLE_NAME, cv, ItemsTable.COLUMN_ITEM_CATEGORY + " =?", new String[]{ String.valueOf(catId) });
+
         }
 
         this.mSqlDatabase.delete(TABLE_NAME, query, values);

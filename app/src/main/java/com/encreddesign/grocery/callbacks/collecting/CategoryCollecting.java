@@ -1,4 +1,4 @@
-package com.encreddesign.grocery.callbacks;
+package com.encreddesign.grocery.callbacks.collecting;
 
 import android.content.Context;
 import android.widget.ArrayAdapter;

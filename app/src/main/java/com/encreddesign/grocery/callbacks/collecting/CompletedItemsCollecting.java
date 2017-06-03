@@ -1,14 +1,12 @@
-package com.encreddesign.grocery.callbacks;
+package com.encreddesign.grocery.callbacks.collecting;
 
-import android.util.Log;
 import android.view.View;
 
-import com.encreddesign.grocery.BaseActivity;
 import com.encreddesign.grocery.db.category.CategoryEntity;
 import com.encreddesign.grocery.db.category.CategoryMapper;
 import com.encreddesign.grocery.db.items.GroceryEntity;
 import com.encreddesign.grocery.db.items.ItemsMapper;
-import com.encreddesign.grocery.fragments.CategoryItemsFragment;
+import com.encreddesign.grocery.fragments.CompletedItemsFragment;
 import com.encreddesign.grocery.fragments.GroceryFragment;
 import com.encreddesign.grocery.tasks.TaskHandler;
 
@@ -16,17 +14,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Joshua on 26/05/2017.
+ * Created by Joshua on 24/05/2017.
  */
 
-public class CategoryItemsCollecting implements Runnable {
+public class CompletedItemsCollecting implements Runnable {
 
-    private final CategoryMapper mItemsMapper;
+    private final ItemsMapper mItemsMapper;
 
     private final TaskHandler mHandler;
     private final GroceryFragment mFragment;
 
-    public CategoryItemsCollecting (GroceryFragment fragment, TaskHandler handler, CategoryMapper mapper) {
+    public CompletedItemsCollecting (GroceryFragment fragment, TaskHandler handler, ItemsMapper mapper) {
 
         this.mHandler = handler;
         this.mItemsMapper = mapper;
@@ -38,15 +36,10 @@ public class CategoryItemsCollecting implements Runnable {
     @Override
     public void run() {
 
-        final CategoryItemsFragment fragment = ((CategoryItemsFragment) mFragment);
+        final CompletedItemsFragment fragment = ((CompletedItemsFragment) mFragment);
+
         final List<GroceryEntity> items = new ArrayList<>();
-
-        int dbId = ((BaseActivity) fragment.getActivity()).mGroceryPrefs.getInt(BaseActivity.DB_KEY);
-        List<GroceryEntity> itemsMapper = null;
-
-        if(dbId > 0) {
-            itemsMapper = this.mItemsMapper.findItemsByCatId(dbId);
-        }
+        final List<GroceryEntity> itemsMapper = this.mItemsMapper.findItemsByComp();
 
         this.clearList(fragment);
 
@@ -67,7 +60,7 @@ public class CategoryItemsCollecting implements Runnable {
 
     }
 
-    void clearList (final CategoryItemsFragment fragment) {
+    void clearList (final CompletedItemsFragment fragment) {
 
         this.mHandler.ui(new Runnable() {
             @Override
@@ -83,7 +76,7 @@ public class CategoryItemsCollecting implements Runnable {
 
     }
 
-    void updateList (final CategoryItemsFragment fragment, final List<GroceryEntity> items) {
+    void updateList (final CompletedItemsFragment fragment, final List<GroceryEntity> items) {
 
         this.mHandler.ui(new Runnable() {
             @Override

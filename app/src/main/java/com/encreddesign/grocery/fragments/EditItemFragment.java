@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -20,7 +19,7 @@ import android.widget.TextView;
 
 import com.encreddesign.grocery.BaseActivity;
 import com.encreddesign.grocery.R;
-import com.encreddesign.grocery.callbacks.CategoryCollecting;
+import com.encreddesign.grocery.callbacks.collecting.CategoryCollecting;
 import com.encreddesign.grocery.callbacks.ItemSubmit;
 import com.encreddesign.grocery.callbacks.OnCompletionTag;
 import com.encreddesign.grocery.db.category.CategoryEntity;

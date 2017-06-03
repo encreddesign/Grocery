@@ -15,6 +15,7 @@ import com.encreddesign.grocery.R;
 import com.encreddesign.grocery.db.items.GroceryEntity;
 import com.encreddesign.grocery.db.items.ItemsMapper;
 import com.encreddesign.grocery.db.items.ItemsTable;
+import com.encreddesign.grocery.fragments.dialogs.DeleteDialogFragment;
 
 import java.util.List;
 
@@ -24,7 +25,7 @@ import es.dmoral.toasty.Toasty;
  * Created by Joshua on 06/05/2017.
  */
 
-public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> {
+public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> implements DeleteDialogFragment.Listener {
 
     private ViewGroup mParent;
     private final List<GroceryEntity> mItems;
@@ -45,6 +46,18 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> 
             @Override
             public void onClick(View view) {
                 openViewFragment(Integer.valueOf(holder.mItemName.getTag().toString()));
+            }
+        });
+
+        view.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+
+                int dbId = Integer.valueOf(holder.mItemName.getTag().toString());
+
+                removeItem(view, dbId);
+                return true;
+
             }
         });
 
@@ -124,6 +137,22 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> 
 
     }
 
+    void removeItem (final View view, final int dbId) {
+
+        ((BaseActivity) mParent.getContext()).mGroceryPrefs.putInt(BaseActivity.DB_KEY, dbId);
+
+        DeleteDialogFragment dialog = DeleteDialogFragment.newInstance(
+                "Delete Item",
+                "Are you sure you want to delete this item?",
+                mParent.indexOfChild(view),
+                DeleteDialogFragment.DELETE_ITEM,
+                ItemsAdapter.this
+        );
+
+        dialog.show(((BaseActivity) mParent.getContext()).getFragmentManager(), "delete_dialog");
+
+    }
+
     /*
     * @class ViewHolder
     * */
@@ -143,6 +172,16 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> 
             mItemStatus = (RelativeLayout) view.findViewById(R.id.groceryItemCheckbox);
 
         }
+
+    }
+
+    @Override
+    public void onSuccessRemoval(int viewIdx) {
+
+        mItems.remove(viewIdx);
+        notifyDataSetChanged();
+
+        ((BaseActivity) mParent.getContext()).mGroceryPrefs.remove(BaseActivity.DB_KEY);
 
     }
 

@@ -1,32 +1,24 @@
 package com.encreddesign.grocery.fragments.adapter;
 
-import android.content.DialogInterface;
-import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.encreddesign.grocery.BaseActivity;
 import com.encreddesign.grocery.R;
 import com.encreddesign.grocery.db.category.CategoryEntity;
-import com.encreddesign.grocery.db.category.CategoryMapper;
-import com.encreddesign.grocery.db.items.ItemsMapper;
+import com.encreddesign.grocery.fragments.dialogs.DeleteDialogFragment;
 
 import java.util.List;
-
-import es.dmoral.toasty.Toasty;
 
 /**
  * Created by Joshua on 24/05/2017.
  */
 
-public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolder> {
+public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolder> implements DeleteDialogFragment.Listener {
 
     private ViewGroup mParent;
     private final List<CategoryEntity> mItems;
@@ -94,22 +86,17 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Vi
 
     void removeCategory (final View view, final int dbId) {
 
-        final AlertDialog.Builder dialog = new AlertDialog.Builder(((BaseActivity) this.mParent.getContext()));
-        final CategoryMapper mapper = new CategoryMapper(this.mParent.getContext());
+        ((BaseActivity) mParent.getContext()).mGroceryPrefs.putInt(BaseActivity.DB_KEY, dbId);
 
-        try {
+        DeleteDialogFragment dialog = DeleteDialogFragment.newInstance(
+                "Delete Category",
+                "Are you sure you want to delete this category?",
+                mParent.indexOfChild(view),
+                DeleteDialogFragment.DELETE_CATEGORY,
+                CategoriesAdapter.this
+        );
 
-            mapper.deleteCategory(dbId);
-
-            Toasty.success(mParent.getContext(), "Deleted Category", Toast.LENGTH_SHORT).show();
-
-            mItems.remove(mParent.indexOfChild(view));
-            notifyDataSetChanged();
-
-        } catch (Exception ex) {
-            Log.e(BaseActivity.LOG_TAG, "Error", ex);
-            Toasty.error(this.mParent.getContext(), ex.getMessage(), Toast.LENGTH_SHORT).show();
-        }
+        dialog.show(((BaseActivity) mParent.getContext()).getFragmentManager(), "delete_dialog");
 
     }
 
@@ -128,6 +115,16 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Vi
             mCatItems = (TextView) view.findViewById(R.id.categoryItemsCount);
 
         }
+
+    }
+
+    @Override
+    public void onSuccessRemoval(int viewIdx) {
+
+        mItems.remove(viewIdx);
+        notifyDataSetChanged();
+
+        ((BaseActivity) mParent.getContext()).mGroceryPrefs.remove(BaseActivity.DB_KEY);
 
     }
 

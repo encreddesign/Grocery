@@ -1,6 +1,5 @@
 package com.encreddesign.grocery.fragments.adapter;
 
-import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -16,6 +15,7 @@ import com.encreddesign.grocery.R;
 import com.encreddesign.grocery.db.items.GroceryEntity;
 import com.encreddesign.grocery.db.items.ItemsMapper;
 import com.encreddesign.grocery.db.items.ItemsTable;
+import com.encreddesign.grocery.fragments.dialogs.DeleteDialogFragment;
 
 import java.util.List;
 
@@ -25,7 +25,7 @@ import es.dmoral.toasty.Toasty;
  * Created by Joshua on 24/05/2017.
  */
 
-public class OutstandingItemsAdapter extends RecyclerView.Adapter<OutstandingItemsAdapter.ViewHolder> {
+public class OutstandingItemsAdapter extends RecyclerView.Adapter<OutstandingItemsAdapter.ViewHolder> implements DeleteDialogFragment.Listener {
 
     private ViewGroup mParent;
     private final List<GroceryEntity> mItems;
@@ -46,6 +46,18 @@ public class OutstandingItemsAdapter extends RecyclerView.Adapter<OutstandingIte
             @Override
             public void onClick(View view) {
                 openViewFragment(Integer.valueOf(holder.mItemName.getTag().toString()));
+            }
+        });
+
+        view.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+
+                int dbId = Integer.valueOf(holder.mItemName.getTag().toString());
+
+                removeItem(view, dbId);
+                return true;
+
             }
         });
 
@@ -122,6 +134,22 @@ public class OutstandingItemsAdapter extends RecyclerView.Adapter<OutstandingIte
 
     }
 
+    void removeItem (final View view, final int dbId) {
+
+        ((BaseActivity) mParent.getContext()).mGroceryPrefs.putInt(BaseActivity.DB_KEY, dbId);
+
+        DeleteDialogFragment dialog = DeleteDialogFragment.newInstance(
+                "Delete Item",
+                "Are you sure you want to delete this item?",
+                mParent.indexOfChild(view),
+                DeleteDialogFragment.DELETE_ITEM,
+                OutstandingItemsAdapter.this
+        );
+
+        dialog.show(((BaseActivity) mParent.getContext()).getFragmentManager(), "delete_dialog");
+
+    }
+
     /*
     * @class ViewHolder
     * */
@@ -141,6 +169,16 @@ public class OutstandingItemsAdapter extends RecyclerView.Adapter<OutstandingIte
             mItemStatus = (RelativeLayout) view.findViewById(R.id.groceryItemCheckbox);
 
         }
+
+    }
+
+    @Override
+    public void onSuccessRemoval(int viewIdx) {
+
+        mItems.remove(viewIdx);
+        notifyDataSetChanged();
+
+        ((BaseActivity) mParent.getContext()).mGroceryPrefs.remove(BaseActivity.DB_KEY);
 
     }
 

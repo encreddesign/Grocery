@@ -9,7 +9,7 @@ import com.encreddesign.grocery.GroceryActivity;
 import com.encreddesign.grocery.R;
 import com.encreddesign.grocery.db.items.GroceryEntity;
 import com.encreddesign.grocery.db.items.ItemsMapper;
-import com.encreddesign.grocery.fragments.GroceryDialogFragment;
+import com.encreddesign.grocery.fragments.dialogs.GroceryDialogFragment;
 import com.encreddesign.grocery.tasks.TaskHandler;
 
 import java.util.List;

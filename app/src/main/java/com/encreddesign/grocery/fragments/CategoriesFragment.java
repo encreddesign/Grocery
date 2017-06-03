@@ -11,7 +11,7 @@ import android.widget.RelativeLayout;
 
 import com.encreddesign.grocery.BaseActivity;
 import com.encreddesign.grocery.R;
-import com.encreddesign.grocery.callbacks.CategoriesCollecting;
+import com.encreddesign.grocery.callbacks.collecting.CategoriesCollecting;
 import com.encreddesign.grocery.db.category.CategoryEntity;
 import com.encreddesign.grocery.db.category.CategoryMapper;
 import com.encreddesign.grocery.fragments.adapter.CategoriesAdapter;

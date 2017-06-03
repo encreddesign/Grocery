@@ -15,10 +15,11 @@ import android.widget.RelativeLayout;
 import com.encreddesign.grocery.BaseActivity;
 import com.encreddesign.grocery.R;
 import com.encreddesign.grocery.callbacks.CheckOutstanding;
-import com.encreddesign.grocery.callbacks.ItemsCollecting;
+import com.encreddesign.grocery.callbacks.collecting.ItemsCollecting;
 import com.encreddesign.grocery.db.items.ItemsMapper;
 import com.encreddesign.grocery.fragments.adapter.ItemsAdapter;
 import com.encreddesign.grocery.db.items.GroceryEntity;
+import com.encreddesign.grocery.fragments.dialogs.GroceryDialogFragment;
 
 import java.util.ArrayList;
 import java.util.List;

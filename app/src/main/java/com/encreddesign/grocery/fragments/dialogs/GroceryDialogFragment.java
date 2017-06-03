@@ -1,4 +1,4 @@
-package com.encreddesign.grocery.fragments;
+package com.encreddesign.grocery.fragments.dialogs;
 
 import android.app.DialogFragment;
 import android.os.Bundle;

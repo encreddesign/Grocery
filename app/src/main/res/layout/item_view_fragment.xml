@@ -72,12 +72,18 @@
             android:textColor="@color/colorPrimary"
             android:textStyle="bold"/>
 
-        <GridLayout
-            android:id="@+id/item_view_tags_container"
+        <HorizontalScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/item_tagsMarginTop"
-            android:columnCount="3"/>
+            android:layout_height="wrap_content">
+
+            <GridLayout
+                android:id="@+id/item_view_tags_container"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/item_tagsMarginTop"
+                android:columnCount="3"/>
+
+        </HorizontalScrollView>
 
     </LinearLayout>
 

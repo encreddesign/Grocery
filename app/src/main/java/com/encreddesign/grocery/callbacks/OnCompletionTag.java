@@ -7,6 +7,7 @@ import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
@@ -73,6 +74,14 @@ public class OnCompletionTag implements TextView.OnEditorActionListener {
             TextView textView = (TextView) parent.getChildAt(0);
             textView.setText(tagName);
             textView.setTag(tagName);
+
+            TextView tagClear = (TextView) parent.getChildAt(1);
+            tagClear.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mInsertView.removeView(((View) view.getParent()));
+                }
+            });
 
             this.mInsertView.addView(parent);
             Toasty.success(this.mContext, "Tag added", Toast.LENGTH_SHORT).show();
