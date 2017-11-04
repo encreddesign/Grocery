@@ -2,7 +2,7 @@ package com.encreddesign.grocery.callbacks;
 
 import android.widget.Toast;
 
-import com.encreddesign.grocery.BaseActivity;
+import com.encreddesign.grocery.activity.BaseActivity;
 import com.encreddesign.grocery.db.category.CategoryEntity;
 import com.encreddesign.grocery.db.category.CategoryMapper;
 import com.encreddesign.grocery.fragments.GroceryFragment;

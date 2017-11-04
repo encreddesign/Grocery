@@ -1,4 +1,4 @@
-package com.encreddesign.grocery;
+package com.encreddesign.grocery.manager;
 
 import android.app.Activity;
 import android.content.Context;

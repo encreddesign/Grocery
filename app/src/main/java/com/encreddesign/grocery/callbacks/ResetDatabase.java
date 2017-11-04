@@ -4,8 +4,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import com.encreddesign.grocery.BaseActivity;
-import com.encreddesign.grocery.GroceryActivity;
+import com.encreddesign.grocery.App;
+import com.encreddesign.grocery.activity.BaseActivity;
+import com.encreddesign.grocery.activity.GroceryActivity;
 import com.encreddesign.grocery.db.category.CategoryMapper;
 import com.encreddesign.grocery.db.items.ItemsMapper;
 import com.encreddesign.grocery.fragments.ItemsFragment;
@@ -60,7 +61,7 @@ public class ResetDatabase implements Runnable {
             Toasty.success(this.mActivity.getBaseContext(), "Successfull reset", Toast.LENGTH_SHORT).show();
 
         } catch (Exception ex) {
-            Log.e(BaseActivity.LOG_TAG, "Error", ex);
+            Log.e(App.TAG, "Error", ex);
             Toasty.error(this.mActivity.getBaseContext(), ex.getMessage(), Toast.LENGTH_LONG).show();
         }
 

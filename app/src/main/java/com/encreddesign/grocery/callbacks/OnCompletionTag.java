@@ -3,7 +3,6 @@ package com.encreddesign.grocery.callbacks;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -15,7 +14,8 @@ import android.widget.GridLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.encreddesign.grocery.BaseActivity;
+import com.encreddesign.grocery.App;
+import com.encreddesign.grocery.activity.BaseActivity;
 import com.encreddesign.grocery.R;
 
 import es.dmoral.toasty.Toasty;
@@ -87,7 +87,7 @@ public class OnCompletionTag implements TextView.OnEditorActionListener {
             Toasty.success(this.mContext, "Tag added", Toast.LENGTH_SHORT).show();
 
         } catch (Exception ex) {
-            Log.e(BaseActivity.LOG_TAG, "Error", ex);
+            Log.e(App.TAG, "Error", ex);
             Toasty.error(this.mContext, ex.getMessage(), Toast.LENGTH_SHORT).show();
         }
 

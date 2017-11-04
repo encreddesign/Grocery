@@ -1,10 +1,11 @@
-package com.encreddesign.grocery;
+package com.encreddesign.grocery.activity;
 
-import android.app.Dialog;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
+
+import com.encreddesign.grocery.manager.BackstackManager;
+import com.encreddesign.grocery.R;
 
 /**
  * Created by Joshua on 12/05/2017.

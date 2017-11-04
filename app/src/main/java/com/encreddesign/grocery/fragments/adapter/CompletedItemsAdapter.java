@@ -1,6 +1,5 @@
 package com.encreddesign.grocery.fragments.adapter;
 
-import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -11,7 +10,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.encreddesign.grocery.BaseActivity;
+import com.encreddesign.grocery.activity.BaseActivity;
 import com.encreddesign.grocery.R;
 import com.encreddesign.grocery.db.items.GroceryEntity;
 import com.encreddesign.grocery.db.items.ItemsMapper;
@@ -129,7 +128,7 @@ public class CompletedItemsAdapter extends RecyclerView.Adapter<CompletedItemsAd
             }
 
         } catch (Exception ex) {
-            Log.e(BaseActivity.LOG_TAG, "Error", ex);
+            Log.e(App.TAG, "Error", ex);
             Toasty.error(this.mParent.getContext(), ex.getMessage(), Toast.LENGTH_SHORT).show();
         }
 

@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.encreddesign.grocery.BaseActivity;
+import com.encreddesign.grocery.activity.BaseActivity;
 import com.encreddesign.grocery.R;
 import com.encreddesign.grocery.callbacks.ResetDatabase;
 import com.encreddesign.grocery.db.category.CategoryMapper;

@@ -3,7 +3,8 @@ package com.encreddesign.grocery.tasks;
 import android.os.Handler;
 import android.util.Log;
 
-import com.encreddesign.grocery.BaseActivity;
+import com.encreddesign.grocery.App;
+import com.encreddesign.grocery.activity.BaseActivity;
 
 /**
  * Created by Joshua on 01/05/2017.
@@ -55,7 +56,7 @@ public class TaskWrapper {
             this.mWorkerThread.prepHandler();
 
         } catch (Exception ex) {
-            Log.e( BaseActivity.LOG_TAG, "EncredCore.Error", ex );
+            Log.e( App.TAG, "EncredCore.Error", ex );
         }
 
     }

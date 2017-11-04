@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
-import com.encreddesign.grocery.BaseActivity;
+import com.encreddesign.grocery.activity.BaseActivity;
 import com.encreddesign.grocery.R;
 import com.encreddesign.grocery.callbacks.collecting.CategoryItemsCollecting;
 import com.encreddesign.grocery.db.category.CategoryMapper;

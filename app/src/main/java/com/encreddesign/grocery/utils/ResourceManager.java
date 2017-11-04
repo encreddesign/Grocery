@@ -5,7 +5,8 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.util.Log;
 
-import com.encreddesign.grocery.BaseActivity;
+import com.encreddesign.grocery.App;
+import com.encreddesign.grocery.activity.BaseActivity;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -57,7 +58,7 @@ public class ResourceManager {
             }
 
         } catch (Exception ex) {
-            Log.e( BaseActivity.LOG_TAG, "Error reading from stream", ex);
+            Log.e( App.TAG, "Error reading from stream", ex);
         } finally {
 
             try {
@@ -65,7 +66,7 @@ public class ResourceManager {
                 input.close();
 
             } catch (IOException ex) {
-                Log.e( BaseActivity.LOG_TAG, "Error closing resource stream", ex );
+                Log.e( App.TAG, "Error closing resource stream", ex );
             }
 
         }

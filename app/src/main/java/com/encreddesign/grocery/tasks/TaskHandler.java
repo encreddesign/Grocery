@@ -2,7 +2,8 @@ package com.encreddesign.grocery.tasks;
 
 import android.util.Log;
 
-import com.encreddesign.grocery.BaseActivity;
+import com.encreddesign.grocery.App;
+import com.encreddesign.grocery.activity.BaseActivity;
 
 /**
  * Created by Joshua on 03/05/2017.
@@ -38,7 +39,7 @@ public class TaskHandler {
             this.mTaskWrapper.postBgTask(task);
 
         } catch (Exception ex) {
-            Log.e(BaseActivity.LOG_TAG, "EncredCore.ThreadError", ex);
+            Log.e(App.TAG, "EncredCore.ThreadError", ex);
         }
 
         return this;
@@ -60,7 +61,7 @@ public class TaskHandler {
             this.mTaskWrapper.postFgTask(task);
 
         } catch (Exception ex) {
-            Log.e(BaseActivity.LOG_TAG, "EncredCore.ThreadError", ex);
+            Log.e(App.TAG, "EncredCore.ThreadError", ex);
         }
 
         return this;
@@ -75,7 +76,7 @@ public class TaskHandler {
         if(!this.mTaskWrapper.isRunning()) {
             this.mTaskWrapper.start();
         } else {
-            Log.w(BaseActivity.LOG_TAG, "Worker Thread already running");
+            Log.w(App.TAG, "Worker Thread already running");
         }
 
     }

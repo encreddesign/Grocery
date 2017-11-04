@@ -2,11 +2,10 @@ package com.encreddesign.grocery.fragments;
 
 import android.app.Fragment;
 import android.content.Context;
-import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.encreddesign.grocery.BaseActivity;
+import com.encreddesign.grocery.activity.BaseActivity;
 import com.encreddesign.grocery.R;
 
 import es.dmoral.toasty.Toasty;

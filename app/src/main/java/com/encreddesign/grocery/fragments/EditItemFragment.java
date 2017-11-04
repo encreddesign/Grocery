@@ -17,7 +17,8 @@ import android.widget.GridLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.encreddesign.grocery.BaseActivity;
+import com.encreddesign.grocery.App;
+import com.encreddesign.grocery.activity.BaseActivity;
 import com.encreddesign.grocery.R;
 import com.encreddesign.grocery.callbacks.collecting.CategoryCollecting;
 import com.encreddesign.grocery.callbacks.ItemSubmit;
@@ -140,7 +141,7 @@ public class EditItemFragment extends GroceryFragment {
             this.mHandler.bg(new ItemSubmit(this, this.mHandler, new ItemsMapper(this.mContext), entity, this.mUpdateItem));
 
         } catch (Exception ex) {
-            Log.e(BaseActivity.LOG_TAG, "Error", ex);
+            Log.e(App.TAG, "Error", ex);
             this.showToast(getActivity().getBaseContext(), ex.getMessage(), ToastTypes.ERROR);
         }
 
@@ -173,7 +174,7 @@ public class EditItemFragment extends GroceryFragment {
             }
 
         } catch (Exception ex) {
-            Log.e(BaseActivity.LOG_TAG, "Error", ex);
+            Log.e(App.TAG, "Error", ex);
             this.showToast(context, ex.getMessage(), ToastTypes.ERROR);
         }
 

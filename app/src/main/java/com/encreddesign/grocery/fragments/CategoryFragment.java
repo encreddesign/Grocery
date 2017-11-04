@@ -13,7 +13,8 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.encreddesign.grocery.BaseActivity;
+import com.encreddesign.grocery.App;
+import com.encreddesign.grocery.activity.BaseActivity;
 import com.encreddesign.grocery.R;
 import com.encreddesign.grocery.callbacks.CategorySubmit;
 import com.encreddesign.grocery.db.category.CategoryEntity;
@@ -97,7 +98,7 @@ public class CategoryFragment extends GroceryFragment {
                     new CategoryMapper(this.getActivity().getBaseContext()), entity.getCategoryName(), this.mUpdateItem));
 
         } catch (Exception ex) {
-            Log.e(BaseActivity.LOG_TAG, "Error", ex);
+            Log.e(App.TAG, "Error", ex);
             Toasty.error(getActivity().getBaseContext(), ex.getMessage(), Toast.LENGTH_SHORT).show();
         }
 
@@ -118,7 +119,7 @@ public class CategoryFragment extends GroceryFragment {
             this.mEditCatName.setText(entity.getCategoryName());
 
         } catch (Exception ex) {
-            Log.e(BaseActivity.LOG_TAG, "Error", ex);
+            Log.e(App.TAG, "Error", ex);
             this.showToast(context, ex.getMessage(), ToastTypes.ERROR);
         }
 

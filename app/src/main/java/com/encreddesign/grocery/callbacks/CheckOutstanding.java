@@ -4,8 +4,9 @@ import android.content.Context;
 import android.os.Vibrator;
 import android.util.Log;
 
-import com.encreddesign.grocery.BaseActivity;
-import com.encreddesign.grocery.GroceryActivity;
+import com.encreddesign.grocery.App;
+import com.encreddesign.grocery.activity.BaseActivity;
+import com.encreddesign.grocery.activity.GroceryActivity;
 import com.encreddesign.grocery.R;
 import com.encreddesign.grocery.db.items.GroceryEntity;
 import com.encreddesign.grocery.db.items.ItemsMapper;
@@ -86,7 +87,7 @@ public class CheckOutstanding implements Runnable {
         if(vibrator.hasVibrator()) {
             vibrator.vibrate(milliseconds);
         } else {
-            Log.w(BaseActivity.LOG_TAG, "Device does not support vibration");
+            Log.w(App.TAG, "Device does not support vibration");
         }
 
     }

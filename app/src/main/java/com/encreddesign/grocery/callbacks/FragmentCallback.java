@@ -3,7 +3,7 @@ package com.encreddesign.grocery.callbacks;
 import android.app.Activity;
 import android.app.Fragment;
 
-import com.encreddesign.grocery.BaseActivity;
+import com.encreddesign.grocery.activity.BaseActivity;
 
 /**
  * Created by Joshua on 21/05/2017.

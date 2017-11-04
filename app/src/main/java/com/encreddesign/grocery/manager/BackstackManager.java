@@ -1,8 +1,9 @@
-package com.encreddesign.grocery;
+package com.encreddesign.grocery.manager;
 
+import com.encreddesign.grocery.R;
+import com.encreddesign.grocery.activity.BaseActivity;
 import com.encreddesign.grocery.callbacks.FragmentCallbackInterface;
 import com.encreddesign.grocery.fragments.GroceryFragment;
-import com.encreddesign.grocery.fragments.ItemsFragment;
 
 /**
  * Created by Joshua on 12/05/2017.

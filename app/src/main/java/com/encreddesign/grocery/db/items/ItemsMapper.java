@@ -6,7 +6,8 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.encreddesign.grocery.BaseActivity;
+import com.encreddesign.grocery.App;
+import com.encreddesign.grocery.activity.BaseActivity;
 import com.encreddesign.grocery.utils.ValueHelper;
 
 import java.util.ArrayList;
@@ -48,7 +49,7 @@ public class ItemsMapper {
 
         } catch (Exception ex) {
 
-            Log.e(BaseActivity.LOG_TAG, "Database Error", ex);
+            Log.e(App.TAG, "Database Error", ex);
             Toasty.error(this.mContext, ex.getMessage(), Toast.LENGTH_SHORT).show();
 
         }

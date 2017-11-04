@@ -1,4 +1,4 @@
-package com.encreddesign.grocery;
+package com.encreddesign.grocery.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -8,6 +8,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.encreddesign.grocery.manager.BackstackManager;
+import com.encreddesign.grocery.manager.GroceryPreferences;
+import com.encreddesign.grocery.R;
 import com.encreddesign.grocery.callbacks.FabTriggerAnimation;
 import com.encreddesign.grocery.callbacks.FragmentCallback;
 import com.encreddesign.grocery.db.items.ItemsMapper;
@@ -27,7 +30,6 @@ import java.util.List;
 
 public class BaseActivity extends GroceryActivity {
 
-    public static final String LOG_TAG = "EncredTag";
     public static final String DB_KEY = "dbId";
 
     public ItemsMapper mItemsMapper;

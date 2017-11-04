@@ -1,13 +1,12 @@
 package com.encreddesign.grocery.fragments.adapter;
 
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.encreddesign.grocery.BaseActivity;
+import com.encreddesign.grocery.activity.BaseActivity;
 import com.encreddesign.grocery.R;
 import com.encreddesign.grocery.db.category.CategoryEntity;
 import com.encreddesign.grocery.fragments.dialogs.DeleteDialogFragment;

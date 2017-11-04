@@ -1,13 +1,11 @@
 package com.encreddesign.grocery.callbacks;
 
 import android.support.design.widget.FloatingActionButton;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 
-import com.encreddesign.grocery.BaseActivity;
-import com.encreddesign.grocery.GroceryActivity;
+import com.encreddesign.grocery.activity.GroceryActivity;
 import com.encreddesign.grocery.R;
 
 import java.util.List;
